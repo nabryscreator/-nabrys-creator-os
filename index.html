@@ -64,7 +64,40 @@ function updateGuide(){const m=selectedMethod||'Choose a method above or let NAB
 function markCreated(){if(!selectedMethod){alert('Choose a creation method first.');return}content.status='READY';localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));buildPublishing();showScreen('publish')}
 function buildPublishing(){const ps=content.platforms||[];const platformTips={TikTok:'Keep the opening immediate; avoid a long intro.',Instagram:'Use a strong Reel cover and make the caption save-worthy.',YouTube:'Use a clear searchable title and mark it as a Short when appropriate.',Facebook:'Lead with useful context and invite a natural conversation.'};const checks=['Vertical 9:16 video','Hook visible immediately','Readable on-screen text','Audio checked','AI/synthetic disclosure when the platform requires it',...ps.map(p=>p+': '+(platformTips[p]||'Use the platform-native format.'))];$('postChecklist').innerHTML=checks.map(x=>`<div class="check">✓ ${x}</div>`).join('');$('postTitle').textContent=content.title+' | NABRYS';$('postCaption').textContent=content.caption;$('postCta').textContent=content.cta}
 function markPublished(){content.status='PUBLISHED';content.publishedAt=new Date().toISOString();localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));if(!history.some(x=>x.id===content.id)){history.push({...content});localStorage.setItem('nabrysHistory',JSON.stringify(history))}alert('Published status saved. Now add performance results when you have them.');showScreen('tracker');renderLearning()}
-function saveResults(){if(!content){alert('Create content first.');return}let r={views:+$('views').value||0,likes:+$('likes').value||0,comments:+$('comments').value||0,shares:+$('shares').value||0,saves:+$('saves').value||0,leads:+$('leads').value||0};content.results=r;content.status='ANALYZED';localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));let ix=history.findIndex(x=>x.id===content.id);if(ix>=0)history[ix]={...content};else history.push({...content});localStorage.setItem('nabrysHistory',JSON.stringify(history));renderLearning()}
+function saveResults(){
+  if(!content){
+    alert('Create content first.');
+    return;
+  }
+
+  let r={
+    views:+$('views').value||0,
+    likes:+$('likes').value||0,
+    comments:+$('comments').value||0,
+    shares:+$('shares').value||0,
+    saves:+$('saves').value||0,
+    leads:+$('leads').value||0
+  };
+
+  content.results=r;
+  content.status='ANALYZED';
+
+  localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));
+
+  let ix=history.findIndex(x=>x.id===content.id);
+
+  if(ix>=0){
+    history[ix]={...content};
+  }else{
+    history.push({...content});
+  }
+
+  localStorage.setItem('nabrysHistory',JSON.stringify(history));
+
+  renderLearning();
+
+  alert('Results saved and analyzed successfully.');
+}
 function renderLearning(){history=JSON.parse(localStorage.getItem('nabrysHistory')||'[]');const measured=history.filter(x=>x.results);if(measured.length<3){$('learningHeadline').textContent=`${measured.length} measured post${measured.length===1?'':'s'} — keep collecting evidence.`;$('learningText').textContent='NABRYS will not call a format or hook a reliable pattern yet. After several measured posts, it can compare engagement and conversion signals.';$('evidenceNote').textContent='Evidence threshold for this MVP: at least 3 measured posts before pattern suggestions.';return}let best=[...measured].sort((a,b)=>score(b)-score(a))[0];$('learningHeadline').textContent='Early pattern detected — test it again.';$('learningText').textContent=`Your strongest measured post so far is “${best.title}”. NABRYS recommends testing a similar purpose/format again rather than assuming one result guarantees future performance.`;$('evidenceNote').textContent=`Compared ${measured.length} measured posts using normalized engagement signals.`}
 function score(x){let r=x.results||{};return (r.likes+r.comments*2+r.shares*3+r.saves*3+r.leads*5)/Math.max(r.views,1)}
 function copyPack(){navigator.clipboard?.writeText(`${content.title}\n\nHOOK: ${content.hook}\n\n${content.body.join('\n')}\n\nCTA: ${content.cta}\n\nCAPTION:\n${content.caption}`).then(()=>alert('Creator Pack copied.')).catch(()=>alert('Copy is not available in this browser.'))}
