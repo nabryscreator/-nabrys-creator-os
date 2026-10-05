@@ -42,13 +42,30 @@ async function generateWithProvider(req){
  try{const r=await fetch(AI_PROVIDER.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(req),signal:ctrl.signal});if(!r.ok)throw new Error('provider');const data=await r.json();if(!validateGeneration(data))throw new Error('contract');return {data,source:'ai'};}catch(e){return {data:localGenerate(req),source:'local-fallback'};}finally{clearTimeout(timer)}}
 function setProviderEndpoint(url){AI_PROVIDER.endpoint=(url||'').trim();localStorage.setItem('nabrys_provider_endpoint',AI_PROVIDER.endpoint)}
 AI_PROVIDER.endpoint=localStorage.getItem('nabrys_provider_endpoint')||'/api/generate';
-function localGenerate(req){const c=req.creator,n=c.niche||'Creator',intent=req.intent;let v;
- if(intent==='CONVERT')v={title:`Before you spend more on ${n}, fix this first`,hook:`Before you spend more on ${n.toLowerCase()}, make sure this problem is actually solved.`,purpose:'CONVERT',cta:'See the next step and decide whether it fits your goal.'};
- else if(intent==='EDUCATE')v={title:`${n} explained simply: the first 3 things to understand`,hook:`New to ${n.toLowerCase()}? Understand these 3 things before anything else.`,purpose:'EDUCATE',cta:'Save this as your beginner reference.'};
- else if(intent==='BUILD TRUST')v={title:`The ${n} question to ask before your next decision`,hook:`Before your next ${n.toLowerCase()} decision, ask this one question.`,purpose:'BUILD TRUST',cta:'Comment “NEXT” if you want the next step explained simply.'};
- else v={title:`3 ${n} mistakes beginners should avoid`,hook:`If you're getting started with ${n.toLowerCase()}, avoid these 3 mistakes.`,purpose:'REACH',cta:'Save this before your next step.'};
- const body=[`Name one specific problem ${c.audience.toLowerCase()} recognize immediately.`,`Explain the principle in plain language and give one concrete ${n.toLowerCase()} example.`,`Give one small action they can take today — no jargon, no unnecessary tools.`];
- return {...v,body,duration:'20–25 sec',platforms:c.platforms,caption:`${v.title}. Clear, practical, and actionable. 🚀\n\n#NABRYS #ContentCreator #AICreator`,pillar:strategy()[0],engine:{version:NABRYS_ENGINE.version,provider:NABRYS_ENGINE.provider,contract:NABRYS_ENGINE.contract}}}
+function localGenerate(req){
+  const c=req.creator,n=c.niche||'Creator';
+  const history=req.historySummary||[];
+  let intent=req.intent;
+
+  if(history.length>=3){
+    const best=[...history].sort((a,b)=>b.score-a.score)[0];
+    if(best&&best.purpose) intent=best.purpose;
+  }
+
+  let v;
+  if(intent==='CONVERT')v={title:`Before you spend more on ${n}, fix this first`,hook:`Before you spend more on ${n.toLowerCase()}, make sure this problem is actually solved.`,purpose:'CONVERT',cta:'See the next step and decide whether it fits your goal.'};
+  else if(intent==='EDUCATE')v={title:`${n} explained simply: the first 3 things to understand`,hook:`New to ${n.toLowerCase()}? Understand these 3 things before anything else.`,purpose:'EDUCATE',cta:'Save this as your beginner reference.'};
+  else if(intent==='BUILD TRUST')v={title:`The ${n} question to ask before your next decision`,hook:`Before your next ${n.toLowerCase()} decision, ask this one question.`,purpose:'BUILD TRUST',cta:'Comment “NEXT” if you want the next step explained simply.'};
+  else v={title:`3 ${n} mistakes beginners should avoid`,hook:`If you're getting started with ${n.toLowerCase()}, avoid these 3 mistakes.`,purpose:'REACH',cta:'Save this before your next step.'};
+
+  const body=[
+    `Name one specific problem ${c.audience.toLowerCase()} recognize immediately.`,
+    `Explain the principle in plain language and give one concrete ${n.toLowerCase()} example.`,
+    `Give one small action they can take today — no jargon, no unnecessary tools.`
+  ];
+
+  return {...v,body,duration:'20–25 sec',platforms:c.platforms,caption:`${v.title}. Clear, practical, and actionable. 🚀\n\n#NABRYS #ContentCreator #AICreator`,pillar:strategy()[0],engine:{version:NABRYS_ENGINE.version,provider:NABRYS_ENGINE.provider,contract:NABRYS_ENGINE.contract}};
+}
 function runGeneration(intent){const req=generationRequest(intent),out=localGenerate(req);if(!validateGeneration(out))throw new Error('NABRYS generation contract failed validation');return out}
 function contentFromGeneration(g){return {id:'NBR-'+String(Date.now()).slice(-6),status:'SCRIPTED',...g,method:'',createdAt:new Date().toISOString()}}
 async function regenerateFor(intent){try{const result=await generateWithProvider(generationRequest(intent));content=contentFromGeneration(result.data);content.engineSource=result.source;localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));buildDashboard();}catch(e){alert('NABRYS could not build this content pack. Please try again.')}}
