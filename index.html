@@ -32,7 +32,7 @@ function strategy(){
 function contentMix(){const g=data.goal||'';if(/sell/i.test(g))return '30% educate · 20% problem/solution · 20% demo · 15% trust · 15% convert';if(/lead/i.test(g))return '35% educate · 25% buyer questions · 20% trust · 15% lead generation · 5% brand';if(/brand/i.test(g))return '30% expertise · 25% story · 20% opinion · 15% community · 10% growth';return '40% educate · 25% practical · 20% discovery · 10% community · 5% promotion'}
 function platformDirection(){const ps=Array.isArray(data.platforms)?data.platforms:[data.platforms].filter(Boolean);const m={TikTok:'fast hooks, demonstrations and discovery-first short videos',Instagram:'Reels for reach plus saveable, trust-building content',YouTube:'searchable explanations, Shorts and deeper educational content',Facebook:'community-friendly education, conversation and shareable practical posts'};return ps.map(p=>`${p}: ${m[p]||'adapt the format to native audience behavior'}`).join(' · ')}
 const NABRYS_ENGINE={version:'0.8',provider:'local-structured',contract:'creator-content-v1'};
-function generationRequest(intent){const ctx=creatorContext();return {contract:NABRYS_ENGINE.contract,creator:ctx,intent:intent||goalIntent(ctx.goal),historySummary:history.filter(x=>x.results).slice(-5).map(x=>({
+function generationRequest(intent){const ctx=creatorContext();history=JSON.parse(localStorage.getItem('nabrysHistory')||'[]');return {contract:NABRYS_ENGINE.contract,creator:ctx,intent:intent||goalIntent(ctx.goal),historySummary:history.filter(x=>x.results).slice(-5).map(x=>({
   id:x.id,
   title:x.title,
   hook:x.hook,
