@@ -58,11 +58,36 @@ function localGenerate(req){
   else if(intent==='BUILD TRUST')v={title:`The ${n} question to ask before your next decision`,hook:`Before your next ${n.toLowerCase()} decision, ask this one question.`,purpose:'BUILD TRUST',cta:'Comment “NEXT” if you want the next step explained simply.'};
   else v={title:`3 ${n} mistakes beginners should avoid`,hook:`If you're getting started with ${n.toLowerCase()}, avoid these 3 mistakes.`,purpose:'REACH',cta:'Save this before your next step.'};
 
-  const body=[
-    `Name one specific problem ${c.audience.toLowerCase()} recognize immediately.`,
-    `Explain the principle in plain language and give one concrete ${n.toLowerCase()} example.`,
-    `Give one small action they can take today — no jargon, no unnecessary tools.`
+  let body;
+
+if(intent==='EDUCATE'){
+  body=[
+    `First, focus on consistency. You do not need a perfect ${n.toLowerCase()} plan to make progress. You need one you can actually follow.`,
+    `Second, keep the basics simple. Choose a few actions that match your goal and repeat them consistently instead of changing everything at once.`,
+    `Third, track your progress. Small improvements add up, so focus on what you can do today and build from there.`
   ];
+}
+else if(intent==='CONVERT'){
+  body=[
+    `Before spending more money, make sure you know exactly what problem you are trying to solve.`,
+    `More tools or products will not automatically create better results. Start with the simplest solution that moves you toward your goal.`,
+    `Once you know what is actually working, then decide whether spending more will help you move forward.`
+  ];
+}
+else if(intent==='BUILD TRUST'){
+  body=[
+    `Ask yourself one simple question: does this decision actually move you closer to your goal?`,
+    `Beginners often make things more complicated than they need to be. A clear next step is usually more useful than another new tool or strategy.`,
+    `Focus on one action you can repeat consistently, measure the result, and adjust from there.`
+  ];
+}
+else{
+  body=[
+    `Mistake number one: trying to change everything at once. Start with one simple habit you can actually maintain.`,
+    `Mistake number two: expecting immediate results. Progress comes from repeating the basics consistently.`,
+    `Mistake number three: copying someone else's plan without considering your own goal. Choose actions that make sense for you.`
+  ];
+};
 
   return {...v,body,duration:'20–25 sec',platforms:c.platforms,caption:`${v.title}. Clear, practical, and actionable. 🚀\n\n#NABRYS #ContentCreator #AICreator`,pillar:strategy()[0],engine:{version:NABRYS_ENGINE.version,provider:NABRYS_ENGINE.provider,contract:NABRYS_ENGINE.contract}};
 }
@@ -73,7 +98,68 @@ function ensureContent(){if(content)return;try{content=contentFromGeneration(run
 function creatorContext(){return {niche:(data.niche||'Creator').trim(),audience:(data.audience||'your audience').trim(),goal:data.goal||'Grow an audience',platforms:Array.isArray(data.platforms)?data.platforms:[data.platforms].filter(Boolean),style:data.style||'Educational',frequency:data.frequency||'3× week',ai:data.ai||"I'm completely new"}}
 function audienceAngle(){const a=(data.audience||'').toLowerCase();if(/beginner|new|first|start/.test(a))return 'beginner clarity';if(/owner|business|entrepreneur|client/.test(a))return 'practical business outcomes';if(/parent|mom|dad|family/.test(a))return 'time-saving, realistic guidance';if(/professional|expert|advanced/.test(a))return 'specific, higher-signal insights';return 'clear practical outcomes'}
 function buildDashboard(){ensureContent();let n=data.niche||'your niche',a=data.audience||'your audience';$('direction').textContent=`Help ${a.toLowerCase()} through clear ${data.style.toLowerCase()} ${n.toLowerCase()} content, while working toward your goal: ${data.goal.toLowerCase()}.`;$('goalP').textContent=data.goal;$('platformP').textContent=Array.isArray(data.platforms)?data.platforms.join(' + '):data.platforms;$('modeP').textContent=data.ai.includes('completely')?'GUIDED MODE':'SMART MODE';$('pillars').innerHTML=strategy().map(x=>`<li>${x}</li>`).join('')+`<li><b>Content mix:</b> ${contentMix()}</li><li><b>Platform direction:</b> ${platformDirection()}</li>`;$('idea').textContent=content.title;$('hook').textContent=`“${content.hook}”`;$('why').textContent=`This idea matches your ${n} niche, your ${data.goal.toLowerCase()} goal and your ${data.style.toLowerCase()} style. Future recommendations can use the performance data you enter.`;$('aiLevel').textContent=data.ai+(data.ai.includes('completely')?' — NABRYS will show every step.':' — NABRYS will keep guidance concise.');$('engineSummary').textContent=`Contract ${NABRYS_ENGINE.contract} · Using ${audienceAngle()}, a ${data.style.toLowerCase()} voice, ${data.goal.toLowerCase()} as the primary objective, and ${Array.isArray(data.platforms)?data.platforms.length:1} selected platform(s). Structured output validation is active.`;}
-function openScript(){ensureContent();$('contentId').textContent=content.id;$('scriptTitle').textContent=content.title;$('purposeP').textContent=content.purpose;$('durationP').textContent=content.duration;$('scriptHook').textContent=content.hook;$('bodyTimeline').innerHTML=content.body.map((x,j)=>`<div><b>${String(3+j*5).padStart(2,'0')}s</b> · ${x}</div>`).join('');$('scriptCta').textContent=content.cta;$('screenText').innerHTML=[['0:00','STOP SCROLLING'],['0:04','MISTAKE #1'],['0:09','MISTAKE #2'],['0:14','MISTAKE #3'],['0:19','NEXT STEP →']].map(x=>`<div><b>${x[0]}</b> · ${x[1]}</div>`).join('');$('caption').textContent=content.caption;showScreen('script')}
+function openScript(){
+  ensureContent();
+
+  $('contentId').textContent=content.id;
+  $('scriptTitle').textContent=content.title;
+  $('purposeP').textContent=content.purpose;
+  $('durationP').textContent=content.duration;
+  $('scriptHook').textContent=content.hook;
+
+  $('bodyTimeline').innerHTML=content.body.map((x,j)=>
+    `<div><b>${String(3+j*5).padStart(2,'0')}s</b> · ${x}</div>`
+  ).join('');
+
+  $('scriptCta').textContent=content.cta;
+
+  let screenText;
+
+  if(content.purpose==='EDUCATE'){
+    screenText=[
+      ['0:00','3 THINGS TO KNOW'],
+      ['0:04','1 · CONSISTENCY'],
+      ['0:09','2 · KEEP IT SIMPLE'],
+      ['0:14','3 · TRACK PROGRESS'],
+      ['0:19','SAVE THIS →']
+    ];
+  }
+  else if(content.purpose==='CONVERT'){
+    screenText=[
+      ['0:00','BEFORE YOU SPEND MORE'],
+      ['0:04','DEFINE THE PROBLEM'],
+      ['0:09','START SIMPLE'],
+      ['0:14','SEE WHAT WORKS'],
+      ['0:19','NEXT STEP →']
+    ];
+  }
+  else if(content.purpose==='BUILD TRUST'){
+    screenText=[
+      ['0:00','ASK THIS FIRST'],
+      ['0:04','DOES IT HELP YOUR GOAL?'],
+      ['0:09','KEEP IT SIMPLE'],
+      ['0:14','TEST ONE ACTION'],
+      ['0:19','COMMENT “NEXT” →']
+    ];
+  }
+  else{
+    screenText=[
+      ['0:00','3 MISTAKES TO AVOID'],
+      ['0:04','MISTAKE #1'],
+      ['0:09','MISTAKE #2'],
+      ['0:14','MISTAKE #3'],
+      ['0:19','SAVE THIS →']
+    ];
+  }
+
+  $('screenText').innerHTML=screenText.map(x=>
+    `<div><b>${x[0]}</b> · ${x[1]}</div>`
+  ).join('');
+
+  $('caption').textContent=content.caption;
+
+  showScreen('script');
+}
 function openCreate(){const opts=[['Record Myself','Best when your personality is the product.'],['AI Avatar','Best when you want a presenter without filming yourself.'],['AI Voice + Visuals','Best for faceless educational content.'],['Images + Text','Fastest option for simple visual posts.']];$('methods').innerHTML=opts.map(([a,b])=>`<div class="method ${selectedMethod===a?'active':''}" onclick="selectMethod('${a.replaceAll("'","\\'")}')"><b>${a}</b><p class="small">${b}</p></div>`).join('');updateGuide();showScreen('create')}
 function selectMethod(m){selectedMethod=m;content.method=m;localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));openCreate()}
 function chooseRecommended(){selectedMethod=data.ai.includes('completely')?(/Professional|Educational/.test(data.style)?'AI Avatar':'AI Voice + Visuals'):'Record Myself';content.method=selectedMethod;localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));openCreate()}
