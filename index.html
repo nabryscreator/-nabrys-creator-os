@@ -125,7 +125,26 @@ else{
 }
 function runGeneration(intent){const req=generationRequest(intent),out=localGenerate(req);if(!validateGeneration(out))throw new Error('NABRYS generation contract failed validation');return out}
 function contentFromGeneration(g){return {id:'NBR-'+String(Date.now()).slice(-6),status:'SCRIPTED',...g,method:'',createdAt:new Date().toISOString()}}
-async function regenerateFor(intent){try{const result=await generateWithProvider(generationRequest(intent));content=contentFromGeneration(result.data);content.engineSource=result.source;localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));buildDashboard();}catch(e){alert('NABRYS could not build this content pack. Please try again.')}}
+async function regenerateFor(intent){
+  try{
+    if(content){
+      history=JSON.parse(localStorage.getItem('nabrysHistory')||'[]');
+
+      if(!history.some(x=>x.id===content.id)){
+        history.push({...content,status:'VIEWED'});
+        localStorage.setItem('nabrysHistory',JSON.stringify(history));
+      }
+    }
+
+    const result=await generateWithProvider(generationRequest(intent));
+    content=contentFromGeneration(result.data);
+    content.engineSource=result.source;
+    localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));
+    buildDashboard();
+  }catch(e){
+    alert('NABRYS could not build this content pack. Please try again.');
+  }
+}
 function ensureContent(){if(content)return;try{content=contentFromGeneration(runGeneration());content.engineSource='local-initial';localStorage.setItem('nabrysCurrentContent',JSON.stringify(content))}catch(e){console.error(e);alert('NABRYS could not initialize the content engine.')}}
 function creatorContext(){return {niche:(data.niche||'Creator').trim(),audience:(data.audience||'your audience').trim(),goal:data.goal||'Grow an audience',platforms:Array.isArray(data.platforms)?data.platforms:[data.platforms].filter(Boolean),style:data.style||'Educational',frequency:data.frequency||'3× week',ai:data.ai||"I'm completely new"}}
 function audienceAngle(){const a=(data.audience||'').toLowerCase();if(/beginner|new|first|start/.test(a))return 'beginner clarity';if(/owner|business|entrepreneur|client/.test(a))return 'practical business outcomes';if(/parent|mom|dad|family/.test(a))return 'time-saving, realistic guidance';if(/professional|expert|advanced/.test(a))return 'specific, higher-signal insights';return 'clear practical outcomes'}
