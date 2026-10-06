@@ -97,7 +97,21 @@ async function regenerateFor(intent){try{const result=await generateWithProvider
 function ensureContent(){if(content)return;try{content=contentFromGeneration(runGeneration());content.engineSource='local-initial';localStorage.setItem('nabrysCurrentContent',JSON.stringify(content))}catch(e){console.error(e);alert('NABRYS could not initialize the content engine.')}}
 function creatorContext(){return {niche:(data.niche||'Creator').trim(),audience:(data.audience||'your audience').trim(),goal:data.goal||'Grow an audience',platforms:Array.isArray(data.platforms)?data.platforms:[data.platforms].filter(Boolean),style:data.style||'Educational',frequency:data.frequency||'3× week',ai:data.ai||"I'm completely new"}}
 function audienceAngle(){const a=(data.audience||'').toLowerCase();if(/beginner|new|first|start/.test(a))return 'beginner clarity';if(/owner|business|entrepreneur|client/.test(a))return 'practical business outcomes';if(/parent|mom|dad|family/.test(a))return 'time-saving, realistic guidance';if(/professional|expert|advanced/.test(a))return 'specific, higher-signal insights';return 'clear practical outcomes'}
-function buildDashboard(){ensureContent();let n=data.niche||'your niche',a=data.audience||'your audience';$('direction').textContent=`Help ${a.toLowerCase()} through clear ${data.style.toLowerCase()} ${n.toLowerCase()} content, while working toward your goal: ${data.goal.toLowerCase()}.`;$('goalP').textContent=data.goal;$('platformP').textContent=Array.isArray(data.platforms)?data.platforms.join(' + '):data.platforms;$('modeP').textContent=data.ai.includes('completely')?'GUIDED MODE':'SMART MODE';$('pillars').innerHTML=strategy().map(x=>`<li>${x}</li>`).join('')+`<li><b>Content mix:</b> ${contentMix()}</li><li><b>Platform direction:</b> ${platformDirection()}</li>`;$('idea').textContent=content.title;$('hook').textContent=`“${content.hook}”`;$('why').textContent=`This idea matches your ${n} niche, your ${data.goal.toLowerCase()} goal and your ${data.style.toLowerCase()} style. Future recommendations can use the performance data you enter.`;$('aiLevel').textContent=data.ai+(data.ai.includes('completely')?' — NABRYS will show every step.':' — NABRYS will keep guidance concise.');$('engineSummary').textContent=`Contract ${NABRYS_ENGINE.contract} · Using ${audienceAngle()}, a ${data.style.toLowerCase()} voice, ${data.goal.toLowerCase()} as the primary objective, and ${Array.isArray(data.platforms)?data.platforms.length:1} selected platform(s). Structured output validation is active.`;}
+function buildDashboard(){ensureContent();let n=data.niche||'your niche',a=data.audience||'your audience';$('direction').textContent=`Help ${a.toLowerCase()} through clear ${data.style.toLowerCase()} ${n.toLowerCase()} content, while working toward your goal: ${data.goal.toLowerCase()}.`;$('goalP').textContent=data.goal;$('platformP').textContent=Array.isArray(data.platforms)?data.platforms.join(' + '):data.platforms;$('modeP').textContent=data.ai.includes('completely')?'GUIDED MODE':'SMART MODE';$('pillars').innerHTML=strategy().map(x=>`<li>${x}</li>`).join('')+`<li><b>Content mix:</b> ${contentMix()}</li><li><b>Platform direction:</b> ${platformDirection()}</li>`;$('idea').textContent=content.title;$('hook').textContent=`“${content.hook}”`;$('why').textContent=`This idea matches your ${n} niche, your ${data.goal.toLowerCase()} goal and your ${data.style.toLowerCase()} style. Future recommendations can use the performance data you enter.`;$('aiLevel').textContent=data.ai+(data.ai.includes('completely')?' — NABRYS will show every step.':' — NABRYS will keep guidance concise.');$('engineSummary').textContent=`Contract ${NABRYS_ENGINE.contract} · Using ${audienceAngle()}, a ${data.style.toLowerCase()} voice, ${data.goal.toLowerCase()} as the primary objective, and ${Array.isArray(data.platforms)?data.platforms.length:1} selected platform(s). Structured output validation is active.`;let workflowSteps=document.querySelectorAll('#dash .steps .step');
+if(workflowSteps.length===5 && content){
+  workflowSteps.forEach(step=>step.classList.remove('done','active'));
+
+  let stage=1;
+
+  if(content.status==='SCRIPTED') stage=2;
+  if(content.status==='PUBLISHED') stage=4;
+  if(content.status==='ANALYZED') stage=5;
+
+  workflowSteps.forEach((step,index)=>{
+    if(index<stage-1) step.classList.add('done');
+    if(index===stage-1) step.classList.add('active');
+  });
+}}
 function openScript(){
   ensureContent();
 
