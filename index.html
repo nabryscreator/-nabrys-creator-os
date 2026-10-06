@@ -32,7 +32,15 @@ function strategy(){
 function contentMix(){const g=data.goal||'';if(/sell/i.test(g))return '30% educate · 20% problem/solution · 20% demo · 15% trust · 15% convert';if(/lead/i.test(g))return '35% educate · 25% buyer questions · 20% trust · 15% lead generation · 5% brand';if(/brand/i.test(g))return '30% expertise · 25% story · 20% opinion · 15% community · 10% growth';return '40% educate · 25% practical · 20% discovery · 10% community · 5% promotion'}
 function platformDirection(){const ps=Array.isArray(data.platforms)?data.platforms:[data.platforms].filter(Boolean);const m={TikTok:'fast hooks, demonstrations and discovery-first short videos',Instagram:'Reels for reach plus saveable, trust-building content',YouTube:'searchable explanations, Shorts and deeper educational content',Facebook:'community-friendly education, conversation and shareable practical posts'};return ps.map(p=>`${p}: ${m[p]||'adapt the format to native audience behavior'}`).join(' · ')}
 const NABRYS_ENGINE={version:'0.8',provider:'local-structured',contract:'creator-content-v1'};
-function generationRequest(intent){const ctx=creatorContext();return {contract:NABRYS_ENGINE.contract,creator:ctx,intent:intent||goalIntent(ctx.goal),historySummary:history.filter(x=>x.results).slice(-5).map(x=>({purpose:x.purpose,platforms:x.platforms,score:score(x)})),constraints:{mobileFirst:true,beginnerSafe:ctx.ai.includes('completely'),avoidJargon:true,onePrimaryAction:true},responseSchema:{title:'string',purpose:'string',hook:'string',body:['string'],cta:'string',caption:'string',duration:'string',platforms:['string']}}}
+function generationRequest(intent){const ctx=creatorContext();return {contract:NABRYS_ENGINE.contract,creator:ctx,intent:intent||goalIntent(ctx.goal),historySummary:history.filter(x=>x.results).slice(-5).map(x=>({
+  id:x.id,
+  title:x.title,
+  hook:x.hook,
+  purpose:x.purpose,
+  pillar:x.pillar,
+  platforms:x.platforms,
+  score:score(x)
+})),constraints:{mobileFirst:true,beginnerSafe:ctx.ai.includes('completely'),avoidJargon:true,onePrimaryAction:true},responseSchema:{title:'string',purpose:'string',hook:'string',body:['string'],cta:'string',caption:'string',duration:'string',platforms:['string']}}}
 function goalIntent(goal){if(/sell/i.test(goal||''))return 'CONVERT';if(/lead/i.test(goal||''))return 'BUILD TRUST';if(/educate/i.test(goal||''))return 'EDUCATE';return 'REACH'}
 function validateGeneration(x){const required=['title','purpose','hook','body','cta','caption','duration','platforms'];return !!x&&required.every(k=>x[k])&&Array.isArray(x.body)&&x.body.length>=3&&Array.isArray(x.platforms)}
 const AI_PROVIDER={endpoint:'/api/generate',timeoutMs:30000};
@@ -45,18 +53,42 @@ AI_PROVIDER.endpoint=localStorage.getItem('nabrys_provider_endpoint')||'/api/gen
 function localGenerate(req){
   const c=req.creator,n=c.niche||'Creator';
   const history=req.historySummary||[];
-  let intent=req.intent;
+let intent=req.intent;
+let best=null;
+let avoidTitles=history.map(x=>x.title).filter(Boolean);
+let avoidHooks=history.map(x=>x.hook).filter(Boolean);
 
-  if(history.length>=3){
-    const best=[...history].sort((a,b)=>b.score-a.score)[0];
-    if(best&&best.purpose) intent=best.purpose;
+if(history.length>=3){
+  best=[...history].sort((a,b)=>b.score-a.score)[0];
+
+  if(best&&best.purpose&&!req.intent){
+    intent=best.purpose;
   }
+}
 
   let v;
   if(intent==='CONVERT')v={title:`Before you spend more on ${n}, fix this first`,hook:`Before you spend more on ${n.toLowerCase()}, make sure this problem is actually solved.`,purpose:'CONVERT',cta:'See the next step and decide whether it fits your goal.'};
   else if(intent==='EDUCATE')v={title:`${n} explained simply: the first 3 things to understand`,hook:`New to ${n.toLowerCase()}? Understand these 3 things before anything else.`,purpose:'EDUCATE',cta:'Save this as your beginner reference.'};
   else if(intent==='BUILD TRUST')v={title:`The ${n} question to ask before your next decision`,hook:`Before your next ${n.toLowerCase()} decision, ask this one question.`,purpose:'BUILD TRUST',cta:'Comment “NEXT” if you want the next step explained simply.'};
   else v={title:`3 ${n} mistakes beginners should avoid`,hook:`If you're getting started with ${n.toLowerCase()}, avoid these 3 mistakes.`,purpose:'REACH',cta:'Save this before your next step.'};
+ if(avoidTitles.includes(v.title)){
+  if(intent==='REACH'){
+    v.title=`The ${n} beginner checklist: start with these 3 steps`;
+    v.hook=`Starting with ${n.toLowerCase()}? Use these 3 steps before you make it complicated.`;
+  }
+  else if(intent==='EDUCATE'){
+    v.title=`3 ${n} basics most beginners learn too late`;
+    v.hook=`If you're new to ${n.toLowerCase()}, learn these 3 basics early.`;
+  }
+  else if(intent==='CONVERT'){
+    v.title=`Do you really need to spend more on ${n}?`;
+    v.hook=`Before buying another ${n.toLowerCase()} solution, check these 3 things.`;
+  }
+  else if(intent==='BUILD TRUST'){
+    v.title=`How to make a smarter ${n} decision as a beginner`;
+    v.hook=`New to ${n.toLowerCase()}? Here's a simple way to make your next decision.`;
+  }
+}
 
   let body;
 
