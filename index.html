@@ -142,6 +142,7 @@ function localGenerate(req){
 
   const pool=variants[intent]||variants.REACH;
   alert('DEBUG ROTATION — Intent: '+intent+' | History: '+history.length+' | Titles: '+avoidTitles.join(' || '));
+ const unused=pool.find(item=>!avoidTitles.includes(item.title));
   const usedForIntent=history.filter(x=>x.purpose===intent).length;
 const chosen=unused||pool[usedForIntent%pool.length];
 
