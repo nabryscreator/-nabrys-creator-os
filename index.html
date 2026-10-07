@@ -219,6 +219,7 @@ async function regenerateFor(intent){
     buildDashboard();
   }catch(e){
     console.error(e);
+   alert('ERROR REAL: '+e.message);
     alert('NABRYS could not build this content pack. Please try again.');
   }
 }
