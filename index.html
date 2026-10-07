@@ -220,7 +220,6 @@ async function regenerateFor(intent){
   }catch(e){
     console.error(e);
    alert('ERROR REAL: '+e.message);
-    alert('NABRYS could not build this content pack. Please try again.');
   }
 }
 function ensureContent(){if(content)return;try{content=contentFromGeneration(runGeneration());content.engineSource='local-initial';localStorage.setItem('nabrysCurrentContent',JSON.stringify(content))}catch(e){console.error(e);alert('NABRYS could not initialize the content engine.')}}
