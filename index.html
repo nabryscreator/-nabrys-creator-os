@@ -191,6 +191,13 @@ function localGenerate(req){
     }
   };
 }
+ function contentFromGeneration(g){
+  return {
+    ...g,
+    id:'NBR-'+Date.now(),
+    status:'IDEA'
+  };
+}
 function runGeneration(intent){const req=generationRequest(intent),out=localGenerate(req);if(!validateGeneration(out))throw new Error('NABRYS generation contract failed validation');return out}
 async function regenerateFor(intent){
   try{
