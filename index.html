@@ -335,7 +335,25 @@ function saveResults(){
   alert('Results saved and analyzed successfully.');
 }
 function renderLearning(){history=JSON.parse(localStorage.getItem('nabrysHistory')||'[]');const measured=history.filter(x=>x.results);alert('DEBUG NABRYS — History: '+history.length+' | Measured: '+measured.length);if(measured.length<3){$('learningHeadline').textContent=`${measured.length} measured post${measured.length===1?'':'s'} — keep collecting evidence.`;$('learningText').textContent='NABRYS will not call a format or hook a reliable pattern yet. After several measured posts, it can compare engagement and conversion signals.';$('evidenceNote').textContent='Evidence threshold for this MVP: at least 3 measured posts before pattern suggestions.';return}let best=[...measured].sort((a,b)=>score(b)-score(a))[0];$('learningHeadline').textContent='Early pattern detected — test it again.';$('learningText').textContent=`Your strongest measured post so far is “${best.title}”. NABRYS recommends testing a similar purpose/format again rather than assuming one result guarantees future performance.`;$('evidenceNote').textContent=`Compared ${measured.length} measured posts using normalized engagement signals.`}
-function score(x){let r=x.results||{};return (r.likes+r.comments*2+r.shares*3+r.saves*3+r.leads*5)/Math.max(r.views,1)}
+function score(x){
+  const r=x.results||{};
+  const views=Number(r.views)||0;
+  const likes=Number(r.likes)||0;
+  const comments=Number(r.comments)||0;
+  const shares=Number(r.shares)||0;
+  const saves=Number(r.saves)||0;
+  const leads=Number(r.leads)||0;
+
+  if(views<=0) return 0;
+
+  return (
+    likes +
+    comments*2 +
+    shares*3 +
+    saves*3 +
+    leads*5
+  )/views;
+}
 function copyPack(){navigator.clipboard?.writeText(`${content.title}\n\nHOOK: ${content.hook}\n\n${content.body.join('\n')}\n\nCTA: ${content.cta}\n\nCAPTION:\n${content.caption}`).then(()=>alert('Creator Pack copied.')).catch(()=>alert('Copy is not available in this browser.'))}
 function copyPublishing(){navigator.clipboard?.writeText(`${content.title} | NABRYS\n\n${content.caption}\n\nCTA: ${content.cta}`).then(()=>alert('Publishing Pack copied.')).catch(()=>alert('Copy is not available in this browser.'))}
 
