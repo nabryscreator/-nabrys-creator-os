@@ -201,21 +201,23 @@ function localGenerate(req){
 function runGeneration(intent){const req=generationRequest(intent),out=localGenerate(req);if(!validateGeneration(out))throw new Error('NABRYS generation contract failed validation');return out}
 async function regenerateFor(intent){
   try{
-    if(content){
-      history=JSON.parse(localStorage.getItem('nabrysHistory')||'[]');
+    history=JSON.parse(localStorage.getItem('nabrysHistory')||'[]');
 
-      if(!history.some(x=>x.id===content.id)){
-        history.push({...content,status:'VIEWED'});
-        localStorage.setItem('nabrysHistory',JSON.stringify(history));
-      }
+    if(content){
+      history.push({...content,status:'VIEWED'});
+      localStorage.setItem('nabrysHistory',JSON.stringify(history));
     }
 
-    const result=await generateWithProvider(generationRequest(intent));
-    content=contentFromGeneration(result.data);
-    content.engineSource=result.source;
+    const result=localGenerate(generationRequest(intent));
+
+    content=contentFromGeneration(result);
+    content.engineSource='local';
+
     localStorage.setItem('nabrysCurrentContent',JSON.stringify(content));
+
     buildDashboard();
   }catch(e){
+    console.error(e);
     alert('NABRYS could not build this content pack. Please try again.');
   }
 }
