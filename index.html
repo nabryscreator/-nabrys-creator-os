@@ -204,10 +204,10 @@ async function regenerateFor(intent){
   try{
     history=JSON.parse(localStorage.getItem('nabrysHistory')||'[]');
 
-    if(content){
-      history.push({...content,status:'VIEWED'});
-      localStorage.setItem('nabrysHistory',JSON.stringify(history));
-    }
+    if(content && !history.some(x=>x.id===content.id)){
+  history.push({...content,status:'VIEWED'});
+  localStorage.setItem('nabrysHistory',JSON.stringify(history));
+}
 
     const result=localGenerate(generationRequest(intent));
 
