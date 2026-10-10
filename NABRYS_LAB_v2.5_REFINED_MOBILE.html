@@ -1,0 +1,610 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NABRYS Creator OS — v2.5 Refined Mobile Lab</title><style>
+:root{--bg:#070914;--panel:#101426;--panel2:#171b32;--text:#f7f7ff;--muted:#a8acc5;--purple:#7c3aed;--pink:#d946ef;--line:#292e4c;--green:#22c55e}*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 70% 8%,#241044 0,#070914 34%);color:var(--text)}button,input,textarea{font:inherit}.wrap{max-width:1100px;margin:auto;padding:24px}.brand{font-weight:900;letter-spacing:.08em;font-size:23px}.brand span,.accent{color:#b26cff}.card{background:linear-gradient(145deg,rgba(20,24,45,.97),rgba(10,13,27,.97));border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:0 20px 60px #0007}.hero{min-height:88vh;display:grid;place-items:center}.hero .card{max-width:780px;text-align:center}.eyebrow{color:#c084fc;font-weight:850;letter-spacing:.04em}.hero h1{font-size:clamp(42px,8vw,76px);line-height:.95;margin:16px 0}.hero p,.muted{color:var(--muted);line-height:1.6}.btn{border:0;border-radius:14px;padding:14px 18px;font-weight:850;color:white;background:linear-gradient(90deg,var(--purple),var(--pink));cursor:pointer}.btn.secondary{background:#202642}.btn.ghost{background:transparent;border:1px solid var(--line)}.btn:disabled{opacity:.45;cursor:not-allowed}.hidden{display:none!important}.progress{height:8px;background:#1c213b;border-radius:999px;overflow:hidden;margin:18px 0 28px}.progress>div{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));transition:.2s}.setup{max-width:780px;margin:50px auto}.setup h2{font-size:36px;margin-bottom:8px}input,textarea{width:100%;margin:16px 0;padding:16px;border-radius:14px;border:1px solid var(--line);background:#0c1020;color:white;font-size:16px}.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0}.option{padding:15px;border:1px solid var(--line);border-radius:14px;background:#11162b;cursor:pointer}.option.active{border-color:#a855f7;background:#25153d}.actions,.top,.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.dashboard{max-width:1100px;margin:24px auto}.grid{display:grid;grid-template-columns:1.4fr .8fr;gap:18px}.today h2{font-size:34px;margin:5px 0}.pill{display:inline-block;padding:7px 11px;border-radius:999px;background:#25153d;color:#d8b4fe;font-size:13px;margin:4px}.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:20px}.step{padding:14px 8px;border-radius:15px;background:#11162b;border:1px solid var(--line);text-align:center;font-size:13px}.step.done{border-color:#3b2a67}.step.active{border-color:#a855f7;background:#24153d}.strategy ul{padding-left:20px;color:#d8dbef}.small{color:var(--muted);font-size:14px}.screen{max-width:950px;margin:30px auto}.sectionTitle{font-size:32px;margin:8px 0}.scriptBox{background:#0c1020;border:1px solid var(--line);border-radius:18px;padding:20px;margin:14px 0}.scriptBox h3{margin:0 0 8px}.timeline{display:grid;gap:10px}.timeline div{padding:13px;border-left:3px solid #8b5cf6;background:#11162b;border-radius:8px}.methodGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.method{padding:18px;border-radius:16px;background:#11162b;border:1px solid var(--line);cursor:pointer}.method.active{border-color:#c084fc;background:#25153d}.checklist{display:grid;gap:10px;margin:16px 0}.check{padding:14px;border:1px solid var(--line);border-radius:14px;background:#11162b}.check.done{border-color:#2f855a;color:#d1fae5}.metricGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metricGrid input{margin:0}.notice{border:1px solid #3b2a67;background:#17112b;border-radius:14px;padding:14px;color:#ddd6fe}.nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.nav button{padding:9px 12px}.kpi{font-size:26px;font-weight:900}.success{color:#86efac}.mobileHint{display:none}.quickGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.quick{padding:14px;border:1px solid var(--line);border-radius:14px;background:#11162b;text-align:left;color:white;cursor:pointer}.week{display:grid;gap:8px}.day{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:13px;background:#0d1122}.coachAnswer{white-space:pre-line}.badge{font-size:11px;font-weight:900;letter-spacing:.06em;color:#c4b5fd}.mobileHint{display:none}@media(max-width:760px){.grid{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}.wrap{padding:16px}.hero h1{font-size:48px}.metricGrid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.btn{min-height:48px;width:100%}.actions{flex-direction:column-reverse}.actions .btn{width:100%}.option,.method{min-height:58px}.card{padding:20px;border-radius:20px}.setup{margin:20px auto}.screen{margin:16px auto}.mobileHint{display:block;color:#c4b5fd;font-size:13px;margin-top:10px}.quickGrid{grid-template-columns:1fr}.day{grid-template-columns:58px 1fr}.day .pill{grid-column:2}}
+.stepLink{color:var(--text);font:inherit;cursor:pointer}.stepLink:focus-visible{outline:3px solid #c084fc;outline-offset:3px}.creatorActions{flex-direction:column;align-items:stretch}.creatorActions .btn{width:100%}.creatorActions .btn:first-child{order:0}.creatorActions .btn:nth-child(2){order:1}.recommendPrefs select{display:block;width:100%;min-height:48px;margin:10px 0 18px;padding:12px;background:#11162b;color:white;border:1px solid var(--line);border-radius:12px}.recommendPrefs label{display:block;margin-top:12px}@media(max-width:760px){.steps{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.step{padding:12px 2px;font-size:10px}.step b{font-size:10px}}
+</style><style>
+.btn{border:1px solid #ffffff30;box-shadow:0 7px 0 #32124c,0 12px 24px #0008;transition:transform .15s,box-shadow .15s;letter-spacing:.01em;line-height:1.3;white-space:normal}.btn.secondary{box-shadow:0 6px 0 #0b1023,0 10px 20px #0007;border:1px solid #454d79}.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #32124c}.btn:focus-visible,.method:focus-visible{outline:3px solid #e9b5ff;outline-offset:3px}.method{box-shadow:0 4px 0 #090c1b;transition:transform .15s,border-color .15s}.method.active{box-shadow:0 4px 0 #4b246f}.method:active{transform:translateY(2px)}.recommendPrefs{margin:16px 0;padding:16px;background:#15172e;border:1px solid #454067;border-radius:16px}.recommendPrefs label{display:block;font-weight:700;margin-top:12px}.recommendPrefs select{width:100%;padding:12px;margin-top:6px;background:#0c1020;color:white;border:1px solid #64618c;border-radius:12px;font-size:16px}.recommendReason{border-left:4px solid #c084fc;padding:14px;background:#24163c;border-radius:12px;margin:16px 0;line-height:1.55}.recommendReason[hidden]{display:none}
+.stepLink{color:var(--text);font:inherit;cursor:pointer}.stepLink:focus-visible{outline:3px solid #c084fc;outline-offset:3px}.creatorActions{flex-direction:column;align-items:stretch}.creatorActions .btn{width:100%}.creatorActions .btn:first-child{order:0}.creatorActions .btn:nth-child(2){order:1}.recommendPrefs select{display:block;width:100%;min-height:48px;margin:10px 0 18px;padding:12px;background:#11162b;color:white;border:1px solid var(--line);border-radius:12px}.recommendPrefs label{display:block;margin-top:12px}@media(max-width:760px){.steps{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.step{padding:12px 2px;font-size:10px}.step b{font-size:10px}}
+</style><style id="nabrys-v11-mobile-fix">
+html{scroll-padding-top:calc(env(safe-area-inset-top, 0px) + 20px);overflow-x:hidden}
+body{min-height:100dvh;overflow-x:hidden}
+.wrap{padding-top:max(28px, calc(env(safe-area-inset-top, 0px) + 24px));padding-bottom:max(24px,env(safe-area-inset-bottom,0px))}
+.top{padding-top:6px;min-width:0}.brand{overflow-wrap:anywhere;line-height:1.35}
+.card,.screen,.dashboard,.grid{min-width:0}
+@media(max-width:760px){.wrap{padding-top:max(36px,calc(env(safe-area-inset-top,0px) + 28px));padding-left:16px;padding-right:16px}.screen,.dashboard{margin-top:0}.top{gap:16px;margin-bottom:20px}.brand{font-size:21px}.steps .step{min-width:0}.card{overflow-wrap:break-word}.hero{min-height:calc(100dvh - 80px)}}
+.platformPack{margin-top:18px}.platformPack h3{margin:0 0 10px}.platformBlock{padding:16px;border:1px solid var(--line);border-radius:14px;background:#10162b;margin:12px 0;overflow-wrap:anywhere}.platformBlock p{line-height:1.55;margin:8px 0}.platformBlock b{color:#e9d5ff}
+.nextStep{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}.nextStep .btn{display:block;width:100%;margin:10px 0}
+</style><style id="nabrys-v12-mobile-polish">
+/* Comfortable touch targets, without full-screen-sized controls */
+@media(max-width:760px){
+ .wrap{padding-left:14px;padding-right:14px}
+ .card{padding:18px;border-radius:18px}
+ .top{gap:10px;margin-bottom:14px}
+ .brand{font-size:clamp(19px,5.4vw,25px);line-height:1.28;letter-spacing:.025em}
+ .top .btn{width:auto;max-width:100%;min-height:44px;padding:10px 14px;font-size:14px}
+ .top>div:last-child{display:flex;flex-wrap:wrap;gap:8px}
+ .btn{min-height:46px;padding:12px 14px;font-size:14px;line-height:1.35;border-radius:12px}
+ .today h2{font-size:clamp(23px,6vw,29px);line-height:1.2}
+ .sectionTitle{font-size:clamp(23px,6vw,29px);line-height:1.22}
+ .setup h2{font-size:28px}
+ .today #idea{font-size:22px!important;line-height:1.3;margin-top:16px!important}
+ .steps{gap:5px}
+ .step{padding:10px 1px;font-size:11px;line-height:1.25;overflow-wrap:normal;word-break:normal}
+ .step b{font-size:clamp(9px,2.5vw,11px);white-space:nowrap;letter-spacing:-.03em}
+ .quickGrid{gap:8px}.quick{padding:11px}
+ .pill{margin:3px;padding:6px 9px}
+ .methodGrid{gap:9px}.method{padding:13px;min-height:48px}
+ .scriptBox{padding:15px;margin:10px 0}
+ .checklist{gap:8px}.check{padding:11px 12px}
+ .platformBlock{padding:13px;margin:10px 0}
+ .platformBlock p{line-height:1.5}
+ .strategy li{margin:7px 0;line-height:1.45}
+ .metricGrid input{margin:0;padding:13px}
+ .actions{gap:12px}
+}
+.checkInteractive{display:flex;align-items:flex-start;gap:12px;cursor:pointer;line-height:1.45}
+.checkInteractive input{width:21px;height:21px;flex:0 0 21px;margin:1px 0 0;accent-color:#a855f7;cursor:pointer}
+.checkInteractive:has(input:checked){border-color:#547b65;background:#10271e}
+.checkInteractive:has(input:checked) span{color:#d1fae5}
+[hidden]{display:none!important}</style><style id="nabrys-v23-welcome-mobile-fix">
+/* v2.3: compact, readable welcome screen on phones; no changes to LAB logic or storage. */
+@media (max-width:760px){
+  #welcome.hero{min-height:0;display:block;margin:12px auto 26px}
+  #welcome.hero .card{max-width:100%;padding:22px 18px;text-align:center}
+  #welcome.hero h1{font-size:clamp(30px,8.2vw,40px);line-height:1.12;letter-spacing:-.035em;margin:16px 0 18px;overflow-wrap:normal;word-break:normal}
+  #welcome.hero .eyebrow{font-size:13px;line-height:1.4}
+  #welcome.hero p{font-size:15px;line-height:1.5;margin:12px 0}
+  #welcome.hero .btn{margin-top:10px}
+}
+@media (max-width:360px){#welcome.hero h1{font-size:29px}}
+</style><style id="nabrys-v24-premium-mobile">
+/* Visual-only refinements: no script, saved data, or testing changes. */
+:root{--bg:#090b17;--panel:#121629;--panel2:#1a2036;--muted:#b8bdd2;--line:#343957}
+body{background:radial-gradient(ellipse at 75% 0%,#24133b 0%,#090b17 45%);-webkit-font-smoothing:antialiased}
+.card{box-shadow:0 12px 38px #0005}
+.btn{transition:filter .15s ease,transform .15s ease}
+.btn:active{transform:scale(.99)}
+.btn:focus-visible,.stepLink:focus-visible{outline:3px solid #d6a7ff;outline-offset:3px}
+@media(max-width:760px){
+ .wrap{padding:22px 14px 38px}
+ .dashboard,.screen{margin:12px auto}
+ .top{gap:10px;margin-bottom:12px}
+ .top>div:last-child{gap:8px}
+ .top .btn{min-height:42px;padding:9px 12px;font-size:13px}
+ .brand{font-size:clamp(19px,5vw,23px);letter-spacing:0}
+ .card{padding:18px 16px;border-radius:19px}
+ .btn{font-size:14px;line-height:1.3;min-height:46px;padding:12px 13px;border-radius:12px;overflow-wrap:anywhere}
+ .today h2,.sectionTitle{font-size:clamp(24px,6.5vw,30px);line-height:1.16;letter-spacing:-.025em}
+ .today #idea{font-size:clamp(21px,5.5vw,25px)!important;line-height:1.25}
+ .eyebrow{font-size:12px;letter-spacing:.09em}
+ .strategy ul{padding-left:20px}
+ .strategy li{font-size:14px;line-height:1.55;margin:8px 0}
+ .strategy h2,.strategy h3{line-height:1.2;letter-spacing:-.02em}
+ .small,.muted{line-height:1.55}
+ .pill{font-size:12px;line-height:1.4;padding:6px 10px;max-width:100%;white-space:normal}
+ .steps{gap:5px;margin-top:17px}
+ .step{border-radius:11px;padding:10px 1px;line-height:1.25}
+ .step b{font-size:clamp(9px,2.5vw,11px)}
+ .methodGrid{gap:8px}.method{padding:13px 12px;border-radius:13px}
+ .scriptBox{padding:15px;border-radius:15px}
+ .notice{font-size:14px;line-height:1.55}
+ #welcome.hero .card{padding:23px 18px}
+ #welcome.hero h1{font-size:clamp(29px,8vw,38px);line-height:1.12;letter-spacing:-.035em}
+ /* The independent LAB controls remain visible but less visually dominant. */
+ .wrap>div:first-child{border-width:1px!important;border-radius:16px!important;padding:14px!important}
+ .wrap>div:first-child>.btn{margin-top:9px!important}
+}
+@media(max-width:370px){.top .btn{font-size:12px;padding:9px 10px}.card{padding:16px 13px}}
+</style><style id="nabrys-v25-refined-mobile">
+/* Presentation-only refinement. No JavaScript or local-storage changes. */
+.strategyIntro{margin:10px 0 16px}.strategyFold{border:1px solid var(--line);border-radius:13px;margin:10px 0;background:#11162b;overflow:hidden}.strategyFold summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 15px;cursor:pointer;font-weight:750;list-style:none}.strategyFold summary::-webkit-details-marker{display:none}.strategyFold summary:after{content:'+';font-size:21px;color:#c084fc;margin-left:auto}.strategyFold[open] summary:after{content:'−'}.strategyFold summary span{font-size:11px;color:#b8bdd2;font-weight:500;white-space:nowrap}.strategyFold[open] summary span{display:none}.strategyFold summary:focus-visible{outline:2px solid #c084fc;outline-offset:-3px}.strategyFold>ul,.strategyFold>p{margin:0 15px 15px}.strategyFold ul{padding-left:20px}.strategyFold li{overflow-wrap:anywhere}.strategyFold>p{line-height:1.6}
+@media(max-width:760px){
+ .wrap{padding:16px 14px 30px}.top{gap:8px}.top>div:last-child{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:8px}.top>div:last-child .btn{width:100%;min-height:44px;padding:9px 8px;font-size:12px}.top>div:last-child .btn:last-child:nth-child(odd){grid-column:1/-1;max-width:190px}
+ .today h2{font-size:clamp(21px,5.5vw,26px);line-height:1.22;margin:8px 0 12px}.today #direction{font-size:14px;line-height:1.55;margin:12px 0}.today #idea{font-size:clamp(20px,5.2vw,24px)!important;margin-top:18px!important}.today>p{line-height:1.55}.today .quickGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.today .quick{padding:10px 7px;min-width:0;font-size:12px}.today .quick .small{font-size:11px;line-height:1.3;display:block;margin-top:5px}.today .quick .badge{font-size:9px}.today .quick b{font-size:14px}.today .steps{margin-top:16px}.today .steps .step{min-height:58px}.strategy{margin-top:0}.strategyFold summary{padding:13px 12px;font-size:14px}.strategyFold summary span{font-size:10px}
+ .wrap>div:first-child{background:#20142f!important;border:1px solid #694c8d!important;padding:13px!important}.wrap>div:first-child>b{display:block;font-size:14px;line-height:1.4}.wrap>div:first-child>div{font-size:12px;line-height:1.45;color:#c9c1d5}.wrap>div:first-child>.btn{font-size:12px;min-height:42px;padding:10px 12px;box-shadow:0 3px 0 #32124c,0 6px 14px #0006}
+}
+</style></head><body><div class="wrap"><div style="background:#362052;border:2px solid #c084fc;border-radius:14px;padding:15px;margin-bottom:18px;color:white"><b>🧪 NABRYS v2.5 · REFINED MOBILE LAB</b><div style="margin-top:6px">Independent test copy. Nothing entered here changes the normal NABRYS app data on this device.</div><button class="btn" style="margin-top:12px" onclick="seedLab()">TEST A · EDUCATE WINS</button> <button class="btn" style="margin-top:12px" onclick="seedLabB()">TEST B · REACH WINS</button> <button class="btn" style="margin-top:12px" onclick="generateFromLearning()">GENERATE NEW IDEA FROM LEARNING →</button> <button class="btn secondary" style="margin-top:12px" onclick="clearLab()">CLEAR LAB DATA</button></div>
+<section id="labConfirmation" hidden style="background:#24163c;border:2px solid #c084fc;border-radius:16px;padding:18px;margin:0 0 16px" role="group" aria-label="Confirm LAB test"><h2 style="margin:0 0 10px;font-size:21px">Confirm LAB test</h2><p id="labConfirmationText" style="line-height:1.55"></p><button class="btn" id="labConfirmAction" type="button">CONFIRM TEST</button><button class="btn secondary" type="button" onclick="cancelLabConfirmation()" style="margin-top:12px">CANCEL</button></section><div id="labTestStatus" hidden role="status" aria-live="polite" style="background:#142b24;border:1px solid #50b68b;border-radius:14px;padding:16px;margin:0 0 16px;line-height:1.5"></div>
+<section id="welcome" class="hero"><div class="card"><div class="eyebrow">NABRYS CREATOR OS</div><h1>Stop guessing.<br>Start creating with direction.</h1><p>A guided creator system built especially for people who want to use AI without needing to understand every AI tool first.</p><p class="mobileHint">Designed mobile-first — you can complete the full guided workflow from your phone.</p><button class="btn" onclick="start()">LET'S BUILD YOUR CREATOR PROFILE →</button></div></section>
+<section id="setup" class="setup hidden"><div class="brand">NABRYS <span>Creator OS</span></div><div class="progress"><div id="bar"></div></div><div class="card"><div class="small" id="count"></div><h2 id="qtitle"></h2><p id="qhelp" class="muted"></p><div id="field"></div><div class="actions"><button class="btn secondary" onclick="back()">← BACK</button><button class="btn ghost hidden" id="cancelProfileEdit" onclick="cancelProfileEdit()">CANCEL EDIT</button><button class="btn" id="setupContinue" onclick="next()">CONTINUE →</button></div></div></section>
+<section id="dash" class="dashboard hidden"><div class="top"><div class="brand">NABRYS <span>Creator OS</span></div><div><button class="btn ghost" onclick="showScreen('tracker')">TRACK RESULTS</button> <button class="btn secondary" onclick="editProfile()">EDIT MY PROFILE</button> <button class="btn secondary" onclick="resetAll()">Reset demo</button></div></div><div class="grid"><div class="card today"><div class="eyebrow">NABRYS TODAY</div><h2>Here’s exactly what you should create today.</h2><p id="direction"></p><div><span class="pill" id="goalP"></span><span class="pill" id="platformP"></span><span class="pill" id="modeP"></span></div><h3 id="idea" style="font-size:26px;margin-top:26px"></h3><p><b>Your hook:</b> <span id="hook"></span></p><div class="quickGrid"><button class="quick" onclick="regenerateFor('REACH')"><span class="badge">OPTIMIZE</span><br><b>Reach</b><br><span class="small">Discovery-first idea</span></button><button class="quick" onclick="regenerateFor('EDUCATE')"><span class="badge">OPTIMIZE</span><br><b>Educate</b><br><span class="small">Useful teaching idea</span></button><button class="quick" onclick="regenerateFor('CONVERT')"><span class="badge">OPTIMIZE</span><br><b>Convert</b><br><span class="small">Goal-driven next step</span></button></div><div class="steps"><div class="step done">1<br><b>IDEA</b><br>✓</div><div class="step active">2<br><b>SCRIPT</b></div><button class="step stepLink" onclick="openCreate()" aria-label="Open guided creation">3<br><b>CREATE</b><br>→</button><button class="step stepLink" onclick="buildPublishing();showScreen('publish')" aria-label="Open publishing guide">4<br><b>POST</b><br>→</button><button class="step stepLink" onclick="showScreen('tracker')" aria-label="Open learning loop">5<br><b>LEARN</b><br>→</button></div><p style="margin-top:22px"><button class="btn" onclick="openScript()">BUILD MY SCRIPT →</button></p><p><button class="btn secondary" onclick="openCreate()">GO TO GUIDED CREATION →</button></p></div><div class="card strategy"><div class="eyebrow">YOUR STRATEGY</div><p class="small strategyIntro">Explore your content plan and the reasoning behind today’s recommendation.</p><details class="strategyFold"><summary>Content pillars <span>View plan</span></summary><ul id="pillars"></ul></details><details class="strategyFold"><summary>Why NABRYS recommends this <span>View evidence</span></summary><p class="small" id="why"></p></details><details class="strategyFold"><summary>Your guidance level <span>View guidance</span></summary><p id="aiLevel"></p></details><div class="notice small hidden" aria-hidden="true"><b>NABRYS Intelligence Layer 0.9</b><br><span id="engineSummary"></span><br><br><span id="engineMode">HYBRID ENGINE · SAFE FALLBACK</span><br>This build is wired to the real NABRYS backend at /api/generate. When the server has an AI key configured, generation uses live AI; if the server is unavailable, NABRYS automatically keeps the validated local fallback.</div></div></div></section>
+<section id="script" class="screen hidden"><div class="top"><div class="brand">NABRYS <span>Script Builder</span></div><button class="btn secondary" onclick="showScreen('dash')">← TODAY</button></div><div class="card"><div class="eyebrow">CREATOR PACK · <span id="contentId"></span></div><h2 class="sectionTitle" id="scriptTitle"></h2><div class="row"><span class="pill" id="purposeP">REACH</span><span class="pill" id="durationP">20–25 sec</span></div><div class="scriptBox"><h3 id="hookTiming">HOOK · 0:00–0:03</h3><p id="scriptHook"></p></div><div class="scriptBox"><h3 id="bodyTiming">BODY · 0:03–0:30</h3><div class="timeline" id="bodyTimeline"></div></div><div class="scriptBox"><h3 id="ctaTiming">CTA · 0:30–0:35</h3><p id="scriptCta"></p><p id="conversionNote" class="small hidden"></p></div><div class="scriptBox"><h3>ON-SCREEN TEXT</h3><div class="timeline" id="screenText"></div></div><div class="scriptBox"><h3>CAPTION</h3><p id="caption"></p></div><div class="actions creatorActions"><button class="btn" onclick="openCreate()">CONTINUE TO CREATE →</button><button class="btn secondary" onclick="copyPack()">COPY CREATOR PACK</button></div><p class="small">Timing is an editing guide, not a guaranteed voiceover duration. Preview your narration and adjust each segment before publishing.</p><p class="small">Next: choose how to produce your video. You can do it entirely from your phone.</p></div></section>
+<section id="create" class="screen hidden"><div class="top"><div class="brand">NABRYS <span>Guided Creation</span></div><button class="btn secondary" onclick="showScreen('script')">← SCRIPT</button></div><div class="card"><div class="eyebrow">HOW DO YOU WANT TO CREATE IT?</div><h2 class="sectionTitle">Choose a creation method</h2><div class="methodGrid" id="methods"></div><div class="recommendPrefs"><strong>Help NABRYS choose the right method</strong><label for="prefCamera">Are you comfortable on camera?</label><select id="prefCamera"><option value="no">No, I prefer not to appear</option><option value="yes">Yes, I can record myself</option></select><label for="prefBudget">Budget for creation tools</label><select id="prefBudget"><option value="free">Free tools only</option><option value="paid">I can use paid tools</option></select><label for="prefFormat">What matters most?</label><select id="prefFormat"><option value="easy">Simplest, fastest workflow</option><option value="presenter">A talking presenter</option><option value="teaching">Explaining ideas with visuals</option><option value="posts">Visual posts without narration</option></select></div><div id="recommendReason" class="recommendReason" hidden aria-live="polite"></div><div id="guide" class="scriptBox"></div><div class="actions"><button class="btn secondary" onclick="chooseRecommended()">NABRYS, CHOOSE FOR ME</button><button class="btn" onclick="markCreated()">I CREATED MY VIDEO — CONTINUE TO POST →</button></div><div class="nextStep"><p class="small">Finish creating your video before continuing. If you are only exploring NABRYS, you can preview the publishing guide from TODAY without marking anything complete.</p><button class="btn secondary" onclick="buildPublishing();showScreen('publish')">PREVIEW PUBLISHING GUIDE →</button></div></div></section>
+<section id="publish" class="screen hidden"><div class="top"><div class="brand">NABRYS <span>Publishing Pack</span></div><button class="btn secondary" onclick="showScreen('create')">← CREATE</button></div><div class="card"><div class="eyebrow">READY TO PUBLISH</div><h2 class="sectionTitle">Your posting checklist</h2><p class="small">Check each item only after you verify it. Your selections are saved on this device.</p><div class="checklist" id="postChecklist"></div><div class="scriptBox"><h3>TITLE</h3><p id="postTitle"></p><h3>CAPTION</h3><p id="postCaption"></p><h3>CTA</h3><p id="postCta"></p></div><div id="platformPacks" class="platformPack"></div><div class="actions"><button class="btn secondary" onclick="copyPublishing()">COPY PUBLISHING PACK</button><button class="btn" onclick="markPublished()">MARK AS PUBLISHED ✓ → LEARN</button></div><div class="nextStep"><p class="small">Only mark as published after posting your content on a platform. You can review past results without marking this draft as published.</p><button class="btn secondary" onclick="showScreen('tracker')">VIEW LEARNING LOOP →</button></div></div></section>
+<section id="weekly" class="screen hidden"><div class="top"><div class="brand">NABRYS <span>Weekly Plan</span></div><button class="btn secondary" onclick="showScreen('dash')">← TODAY</button></div><div class="card"><div class="eyebrow">YOUR NEXT 7 DAYS</div><h2 class="sectionTitle">A simple plan you can actually follow.</h2><p class="muted" id="weekIntro"></p><div class="week" id="weekPlan"></div><p><button class="btn" onclick="generateNext()">GENERATE MY NEXT CONTENT →</button></p></div></section>
+<section id="coach" class="screen hidden"><div class="top"><div class="brand">NABRYS <span>AI Coach</span></div><button class="btn secondary" onclick="showScreen('dash')">← TODAY</button></div><div class="card"><div class="eyebrow">BEGINNER MODE</div><h2 class="sectionTitle">Ask without knowing AI jargon.</h2><p class="muted">This build uses a local beginner knowledge base plus your creator profile. A live AI backend will replace this local engine later.</p><textarea id="coachQ" placeholder="Try: What is a hook? What is 9:16? What is an AI avatar? What should I do first?"></textarea><button class="btn" onclick="askCoach()">EXPLAIN IT SIMPLY →</button><div class="scriptBox coachAnswer" id="coachA">Ask a question and NABRYS will explain the next action in plain language.</div><div class="quickGrid"><button class="quick" onclick="coachPreset('hook')">What is a hook?</button><button class="quick" onclick="coachPreset('avatar')">What is an AI avatar?</button><button class="quick" onclick="coachPreset('first')">What do I do first?</button></div></div></section>
+<section id="tracker" class="screen hidden"><div class="top"><div class="brand">NABRYS <span>Learning Loop</span></div><button class="btn secondary" onclick="showScreen('dash')">← TODAY</button></div><div class="grid"><div class="card"><div class="eyebrow">TRACK RESULTS</div><h2 class="sectionTitle">Teach NABRYS what worked.</h2><p class="muted">Enter results after publishing. The MVP uses simple evidence rules and avoids drawing strong conclusions from a single post.</p><div class="metricGrid"><input id="views" type="number" min="0" placeholder="Views"><input id="likes" type="number" min="0" placeholder="Likes"><input id="comments" type="number" min="0" placeholder="Comments"><input id="shares" type="number" min="0" placeholder="Shares"><input id="saves" type="number" min="0" placeholder="Saves"><input id="leads" type="number" min="0" placeholder="Leads / Sales"></div><p class="small">Enter the results for your current published post. Saving again updates that same post, not a new one.</p><p><button class="btn" onclick="saveResults()">SAVE RESULTS & ANALYZE →</button></p></div><div class="card"><div class="eyebrow">NABRYS LEARNING</div><h3 id="learningHeadline">Not enough data yet.</h3><p id="learningText" class="muted">Publish content and add results. NABRYS will build recommendations gradually.</p><div class="notice small" id="evidenceNote">Evidence threshold: NABRYS waits for multiple posts before calling something a pattern.</div></div></div></section>
+</div><script>
+const labStorage={getItem:k=>window.localStorage.getItem('nabrys_lab_v20_'+k),setItem:(k,v)=>window.localStorage.setItem('nabrys_lab_v20_'+k,v),removeItem:k=>window.localStorage.removeItem('nabrys_lab_v20_'+k)};
+const $=id=>document.getElementById(id); const screens=['welcome','setup','dash','script','create','publish','weekly','coach','tracker'];
+const qs=[{key:'niche',title:'What do you create content about?',help:'Tell NABRYS your main niche.',type:'text',ph:'e.g. Fitness, Beauty, Food, Real Estate, AI'},{key:'audience',title:'Who do you want to reach?',help:'Describe the person you want your content to help.',type:'textarea',ph:'e.g. Beginners who want to lose weight and get stronger'},{key:'goal',title:'What do you want your content to achieve?',help:'Choose your primary goal.',opts:['Grow an audience','Generate leads','Sell a product/service','Build a personal brand','Educate']},{key:'platforms',title:'Where do you create?',help:'Choose every platform you want NABRYS to plan for.',opts:['TikTok','Instagram','YouTube','Facebook'],multi:true},{key:'style',title:'How should your content feel?',help:'Choose the style NABRYS should prioritize.',opts:['Educational','Entertaining','Inspirational','Professional','Storytelling','Promotional']},{key:'frequency',title:'How often do you want to publish?',help:'NABRYS will build a realistic plan.',opts:['3× week','5× week','Daily']},{key:'ai',title:'How experienced are you with AI?',help:'This changes how much guidance NABRYS gives you.',opts:["I'm completely new","I know the basics","I'm experienced"]}];
+function safeRead(key,fallback){try{const v=labStorage.getItem(key);return v===null?fallback:JSON.parse(v)}catch(e){console.warn('Unable to read',key,e);return fallback}}
+let i=0;let data=safeRead('nabrysProfile',{});let content=safeRead('nabrysCurrentContent',null);let history=safeRead('nabrysHistory',[]);if(!Array.isArray(history))history=[];let selectedMethod='';let editingProfile=false;let profileDraft=null;
+function showScreen(id){screens.forEach(s=>$(s).classList.toggle('hidden',s!==id));if(id==='tracker')renderLearning();document.documentElement.scrollTop=0;document.body.scrollTop=0;window.scrollTo({top:0,left:0,behavior:'instant'});requestAnimationFrame(()=>{document.documentElement.scrollTop=0;document.body.scrollTop=0;});}function start(){editingProfile=false;profileDraft=null;i=0;showScreen('setup');render()}
+function editProfile(){if(!data.niche){alert('Complete your profile first.');return}editingProfile=true;profileDraft=JSON.parse(JSON.stringify(data));i=0;showScreen('setup');render()}
+function cancelProfileEdit(){if(!editingProfile)return;data=profileDraft;profileDraft=null;editingProfile=false;buildDashboard();showScreen('dash')}
+function render(){const q=qs[i];$('count').textContent=`${editingProfile?'EDIT PROFILE':'CREATOR SETUP'} · STEP ${i+1} OF ${qs.length}`;$('cancelProfileEdit').classList.toggle('hidden',!editingProfile);$('setupContinue').textContent=editingProfile&&i===qs.length-1?'SAVE PROFILE ✓':'CONTINUE →';$('bar').style.width=((i+1)/qs.length*100)+'%';$('qtitle').textContent=q.title;$('qhelp').textContent=q.help;$('field').innerHTML='';if(q.opts){const box=document.createElement('div');box.className='options';q.opts.forEach(o=>{let d=document.createElement('div');const selected=q.multi?(Array.isArray(data[q.key])&&data[q.key].includes(o)):data[q.key]===o;d.className='option'+(selected?' active':'');d.textContent=o;d.onclick=()=>{if(q.multi){const a=Array.isArray(data[q.key])?[...data[q.key]]:[];data[q.key]=a.includes(o)?a.filter(x=>x!==o):[...a,o]}else data[q.key]=o;render()};box.appendChild(d)});$('field').appendChild(box)}else{let el=document.createElement(q.type==='textarea'?'textarea':'input');el.placeholder=q.ph;el.value=data[q.key]||'';el.oninput=e=>data[q.key]=e.target.value;$('field').appendChild(el)}}
+function next(){const v=data[qs[i].key];if(!v||(Array.isArray(v)&&!v.length)){alert('Choose or enter an answer first.');return}if(i<qs.length-1){i++;render()}else{const changed=editingProfile&&qs.some(q=>JSON.stringify(profileDraft[q.key])!==JSON.stringify(data[q.key]));labStorage.setItem('nabrysProfile',JSON.stringify(data));if(changed){content=null;selectedMethod='';labStorage.removeItem('nabrysCurrentContent')}ensureContent();if(editingProfile){editingProfile=false;profileDraft=null}buildDashboard();showScreen('dash')}}function back(){if(i>0){i--;render()}else if(editingProfile)cancelProfileEdit();else showScreen('welcome')}
+function strategy(){
+ const n=cleanTopic(data.niche||'Creator'), goal=data.goal||'Grow an audience', style=data.style||'Educational';
+ let pillars=[`${n} fundamentals`,`Common mistakes & solutions`,`Practical how-to content`,`Stories, trust & progress`];
+ if(/lead/i.test(goal)) pillars=[`${n} education`,'High-intent questions','Trust & authority','Problems & solutions','Lead-focused content'];
+ if(/sell/i.test(goal)) pillars=[`${n} education`,'Problems & solutions','Product education','Demonstrations','Social proof'];
+ if(/brand/i.test(goal)) pillars=[`${n} expertise`,'Personal point of view','Behind the scenes','Stories & lessons','Community conversation'];
+ if(/educate/i.test(goal)) pillars=[`${n} fundamentals`,'Step-by-step tutorials','Myths & misconceptions','Frequently asked questions','Practical examples'];
+ return pillars;
+}
+function contentMix(){const g=data.goal||'';if(/sell/i.test(g))return '30% educate · 20% problem/solution · 20% demo · 15% trust · 15% convert';if(/lead/i.test(g))return '35% educate · 25% buyer questions · 20% trust · 15% lead generation · 5% brand';if(/brand/i.test(g))return '30% expertise · 25% story · 20% opinion · 15% community · 10% growth';return '40% educate · 25% practical · 20% discovery · 10% community · 5% promotion'}
+function platformDirection(){const ps=Array.isArray(data.platforms)?data.platforms:[data.platforms].filter(Boolean);const m={TikTok:'fast hooks, demonstrations and discovery-first short videos',Instagram:'Reels for reach plus saveable, trust-building content',YouTube:'searchable explanations, Shorts and deeper educational content',Facebook:'community-friendly education, conversation and shareable practical posts'};return ps.map(p=>`${p}: ${m[p]||'adapt the format to native audience behavior'}`).join(' · ')}
+const NABRYS_ENGINE={version:'1.8',provider:'local-structured',contract:'creator-content-v1'};
+function generationRequest(intent){const ctx=creatorContext();return {contract:NABRYS_ENGINE.contract,creator:ctx,intent:intent||goalIntent(ctx.goal),historySummary:history.filter(x=>x.results&&sameNiche(x,cleanTopic(ctx.niche))).slice(-5).map(x=>({purpose:x.purpose,platforms:x.platforms,score:score(x)})),constraints:{mobileFirst:true,beginnerSafe:ctx.ai.includes('completely'),avoidJargon:true,onePrimaryAction:true},responseSchema:{title:'string',purpose:'string',hook:'string',body:['string'],cta:'string',caption:'string',duration:'string',platforms:['string']}}}
+function goalIntent(goal){if(/sell/i.test(goal||''))return 'CONVERT';if(/lead/i.test(goal||''))return 'BUILD TRUST';if(/educate/i.test(goal||''))return 'EDUCATE';return 'REACH'}
+function validateGeneration(x){const required=['title','purpose','hook','body','cta','caption','duration','platforms'];return !!x&&required.every(k=>x[k])&&Array.isArray(x.body)&&x.body.length>=3&&Array.isArray(x.platforms)}
+const AI_PROVIDER={endpoint:'',timeoutMs:8000};
+async function generateWithProvider(req){
+ if(!AI_PROVIDER.endpoint) return {data:localGenerate(req),source:'local'};
+ const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),AI_PROVIDER.timeoutMs);
+ try{const r=await fetch(AI_PROVIDER.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(req),signal:ctrl.signal});if(!r.ok)throw new Error('provider');const data=await r.json();if(!validateGeneration(data))throw new Error('contract');return {data,source:'ai'};}catch(e){return {data:localGenerate(req),source:'local-fallback'};}finally{clearTimeout(timer)}}
+function setProviderEndpoint(url){AI_PROVIDER.endpoint=(url||'').trim();labStorage.setItem('nabrys_provider_endpoint',AI_PROVIDER.endpoint)}
+AI_PROVIDER.endpoint=labStorage.getItem('nabrys_provider_endpoint')||'';
+function cleanTopic(value){return String(value||'content creation').trim().replace(/[.!?,;:]+$/g,'').replace(/\s+/g,' ')}
+function nicheCategory(n){if(/fitness|workout|exercise|strength|weight loss|gym/i.test(n))return 'fitness';if(/finance|money|budget|saving|debt|invest/i.test(n))return 'finance';return 'general'}
+function practicalPoints(n){const category=nicheCategory(n);if(category==='finance')return ['Mistake 1: Not tracking spending. Check your recent transactions and group them into essentials and extras.','Mistake 2: Setting a savings target without a plan. Choose a small amount and schedule when to set it aside.','Mistake 3: Ignoring irregular expenses. List upcoming bills and divide their cost across pay periods.'];if(category==='fitness')return ['Mistake 1: Starting with too much too soon. Pick a manageable routine you can repeat consistently.','Mistake 2: Skipping recovery. Leave time for rest and increase activity gradually.','Mistake 3: Measuring progress only by weight. Track consistency, technique and how you feel.'];return ['Mistake 1: Trying to learn everything at once. Pick one specific beginner goal.','Mistake 2: Following advice without checking the context. Compare it with your own situation.','Mistake 3: Not practicing. Take one small step and review what happened.']}
+function learningSignal(){
+ const niche=cleanTopic(data.niche||'');
+ const measured=history.filter(x=>x&&x.results&&Number(x.results.views)>0&&sameNiche(x,niche));
+ if(measured.length<3)return null;
+ const ranked=[...measured].sort((a,b)=>score(b)-score(a));
+ const best=ranked[0];
+ const intent=['REACH','EDUCATE','BUILD TRUST','CONVERT'].includes(best.purpose)?best.purpose:null;
+ if(!intent)return null;
+ return {intent,bestTitle:best.title,measured:measured.length,bestScore:score(best)};
+}
+function generateFromLearning(){
+ if(!data.niche){alert('Load TEST A or TEST B first.');return}
+ const signal=learningSignal();
+ if(!signal){alert('At least 3 measured posts in the same niche are needed.');return}
+ regenerateFor(signal.intent,true);
+}
+function localGenerate(req){
+ const c=req.creator,n=cleanTopic(c.niche),intent=req.intent,category=nicheCategory(n);
+ const packs={
+ finance:{
+ REACH:['3 Money Mistakes Beginners Can Avoid','Trying to save money but getting nowhere? Check these three habits.',['Check last week’s spending: group purchases into needs, wants, and surprises.','Pick a savings amount you can repeat—even a small one—and decide when to transfer it.','Plan for irregular bills: list upcoming costs and set aside a little each payday.']],
+ EDUCATE:['How to Start a Simple Budget in 3 Steps','A budget does not need a complicated spreadsheet. Start here.',['Write down your take-home income for a typical month.','List essentials first: housing, food, transport, and minimum debt payments.','Set a realistic limit for flexible spending, then review it after one week.']],
+ 'BUILD TRUST':['Before Following Money Advice, Ask These 3 Questions','Not every money tip fits every person. Here is how to check.',['What is the actual cost, including fees and ongoing commitments?','Does this advice match your income, expenses, and short-term needs?','Can you verify the claim with a reliable independent source?']],
+ CONVERT:['Before Paying for a Budgeting App, Check These 3 Things','Thinking of paying for a budgeting app? Check this first.',['Identify the one feature you really need: tracking, reminders, or planning.','Compare total subscription cost with a free spreadsheet or basic banking tools.','Test the free version before committing; cancel if it does not help.']]},
+ fitness:{
+ REACH:['3 Beginner Workout Mistakes to Avoid','Starting a workout routine? These three mistakes can slow your progress.',['Avoid doing too much on day one; start with a manageable session.','Make room for recovery instead of training hard every single day.','Track technique and consistency, not only the number on the scale.']],
+ EDUCATE:['How to Build a Simple Beginner Workout Routine','New to exercise? Keep your first routine simple.',['Choose a few movements for legs, pushing, and pulling that feel manageable.','Practice controlled technique before adding resistance or repetitions.','Schedule recovery and gradually progress as movements become easier.']],
+ 'BUILD TRUST':['How to Tell Whether a Workout Plan Fits You','The best workout plan is one you can do consistently and safely.',['Check whether the exercises match your current ability and equipment.','Look for a realistic schedule that includes rest and progression.','Adjust or seek qualified guidance if a movement causes pain.']],
+ CONVERT:['Before Buying Workout Equipment, Ask These 3 Questions','You may not need expensive equipment to start getting stronger.',['Identify which exercises you cannot do with what you already own.','Compare a low-cost option with bodyweight exercises or resistance bands.','Buy only what supports a routine you can follow consistently.']]}
+ };
+ const fallback={
+ REACH:[`3 Beginner Mistakes to Avoid in ${n}`,`New to ${n}? Avoid these common beginner traps.`,practicalPoints(n)],
+ EDUCATE:[`A Simple 3-Step Introduction to ${n}`,`Want to understand ${n} without getting overwhelmed? Start here.`,[`Choose one specific question you want to answer about ${n}.`,`Find a trustworthy beginner resource and write down one useful example.`,`Try a small, low-risk action and note what you learned.`]],
+ 'BUILD TRUST':[`3 Questions to Ask Before Trying ${n}`,`Before following advice about ${n}, check these three things.`,[`Who created the advice, and what experience supports it?`,`Does it apply to your goals, circumstances, and resources?`,`Can you verify it using another reliable source?`]],
+ CONVERT:[`Before Spending Money on ${n}, Check These 3 Things`,`Considering a purchase related to ${n}? Start with this checklist.`,[`Name the specific problem you want the purchase to solve.`,`Compare total cost and free or lower-cost alternatives.`,`Choose the smallest commitment that lets you evaluate the result.`]]};
+ const [title,hook,body]=(packs[category]||fallback)[intent]||fallback.REACH;
+ const purpose=['REACH','EDUCATE','BUILD TRUST','CONVERT'].includes(intent)?intent:'REACH';
+ const cta=purpose==='BUILD TRUST'?'Which question would you add? Share it below.':purpose==='CONVERT'?'Save this checklist before deciding.':'Save this guide and try one step today.';
+ return {title,hook,body,purpose,cta,duration:'~35 sec (preview)',platforms:c.platforms,caption:`${title}. ${body.map(x=>x.replace(/[.!?]+$/,'')).join(' • ')}. ${cta}`,pillar:strategy()[0],niche:n,engine:{version:'1.8',provider:NABRYS_ENGINE.provider,contract:NABRYS_ENGINE.contract}};
+}
+
+function runGeneration(intent){const req=generationRequest(intent),out=localGenerate(req);if(!validateGeneration(out))throw new Error('NABRYS generation contract failed validation');return out}
+function contentFromGeneration(g){return {id:'NBR-'+String(Date.now()).slice(-6),status:'SCRIPTED',...g,niche:cleanTopic(data.niche),method:'',createdAt:new Date().toISOString()}}
+async function regenerateFor(intent,fromLearning=false){try{
+ const signal=fromLearning?learningSignal():null;
+ const result=await generateWithProvider(generationRequest(intent));
+ content=contentFromGeneration(result.data);content.engineSource=result.source;
+ if(signal)content.learningEvidence={...signal,generatedAt:new Date().toISOString()};
+ labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));buildDashboard();showScreen('dash');
+ }catch(e){alert('NABRYS could not build this content pack. Please try again.')}}
+function ensureContent(){if(content)return;try{content=contentFromGeneration(runGeneration());content.engineSource='local-initial';labStorage.setItem('nabrysCurrentContent',JSON.stringify(content))}catch(e){console.error(e);alert('NABRYS could not initialize the content engine.')}}
+function creatorContext(){return {niche:(data.niche||'Creator').trim(),audience:(data.audience||'your audience').trim(),goal:data.goal||'Grow an audience',platforms:Array.isArray(data.platforms)?data.platforms:[data.platforms].filter(Boolean),style:data.style||'Educational',frequency:data.frequency||'3× week',ai:data.ai||"I'm completely new"}}
+function audienceAngle(){const a=(data.audience||'').toLowerCase();if(/beginner|new|first|start/.test(a))return 'beginner clarity';if(/owner|business|entrepreneur|client/.test(a))return 'practical business outcomes';if(/parent|mom|dad|family/.test(a))return 'time-saving, realistic guidance';if(/professional|expert|advanced/.test(a))return 'specific, higher-signal insights';return 'clear practical outcomes'}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function buildDashboard(){ensureContent();let n=cleanTopic(data.niche||'your niche'),a=String(data.audience||'your audience').trim().replace(/[.!?,;:]+$/g,'');$('direction').textContent=`Help ${a.toLowerCase()} through clear ${data.style.toLowerCase()} content about ${n.toLowerCase()}, while working toward your goal: ${data.goal.toLowerCase()}.`;$('goalP').textContent=data.goal;$('platformP').textContent=Array.isArray(data.platforms)?data.platforms.join(' + '):data.platforms;$('modeP').textContent=data.ai.includes('completely')?'GUIDED MODE':'SMART MODE';$('pillars').innerHTML=strategy().map(x=>`<li>${escapeHtml(x)}</li>`).join('')+`<li><b>Content mix:</b> ${contentMix()}</li><li><b>Platform direction:</b> ${platformDirection()}</li>`;$('idea').textContent=content.title;$('hook').textContent=`“${content.hook}”`;$('why').textContent=content.learningEvidence?`EARLY LEARNING TEST: Among ${content.learningEvidence.measured} measured posts in your ${n} niche, “${content.learningEvidence.bestTitle}” had the strongest normalized engagement. This new ${content.purpose.toLowerCase()} idea follows that winning content purpose. ${content.learningEvidence.variantNote||""} Test it again; this is not proof of future performance.`:`This idea matches your ${n} niche, your ${data.goal.toLowerCase()} goal and your ${data.style.toLowerCase()} style. Use GENERATE FROM LEARNING in the lab header to test an evidence-based recommendation.`;$('aiLevel').textContent=data.ai+(data.ai.includes('completely')?' — NABRYS will show every step.':' — NABRYS will keep guidance concise.');$('engineSummary').textContent=`Contract ${NABRYS_ENGINE.contract} · Using ${audienceAngle()}, a ${data.style.toLowerCase()} voice, ${data.goal.toLowerCase()} as the primary objective, and ${Array.isArray(data.platforms)?data.platforms.length:1} selected platform(s). Structured output validation is active.`;}
+
+function videoTiming(c){
+ // 3-second hook, three 9-second teaching segments, five-second CTA.
+ // Times describe editing targets; creators should preview the spoken narration.
+ return {hookEnd:3,bodyStarts:[3,12,21],ctaStart:30,end:35};
+}
+function conciseOverlay(point){
+  const raw=String(point||'').replace(/^Mistake\s*\d+\s*:\s*/i,'').trim();
+  const rules=[
+    [/^Check last week.s spending/i,'REVIEW YOUR SPENDING'],
+    [/^Pick a savings amount/i,'SET A REALISTIC SAVINGS GOAL'],
+    [/^Plan for irregular bills/i,'PLAN FOR IRREGULAR BILLS'],
+    [/^Identify the one feature/i,'CHOOSE THE FEATURE YOU NEED'],
+    [/^Compare total subscription cost/i,'COMPARE THE TOTAL COST'],
+    [/^Test the free version/i,'TRY THE FREE VERSION FIRST'],
+    [/^Write down your take-home income/i,'WRITE DOWN YOUR MONTHLY INCOME'],
+    [/^List essentials first/i,'LIST YOUR ESSENTIAL EXPENSES'],
+    [/^Set a realistic limit/i,'SET A FLEXIBLE SPENDING LIMIT'],
+    [/^What is the actual cost/i,'CHECK THE FULL COST'],
+    [/^Does this advice match/i,'CHECK IF THE ADVICE FITS YOU'],
+    [/^Can you verify the claim/i,'VERIFY THE CLAIM'],
+    [/^Avoid doing too much/i,'START SMALL AND BUILD UP'],
+    [/^Make room for recovery/i,'MAKE TIME FOR RECOVERY'],
+    [/^Track technique and consistency/i,'TRACK FORM AND CONSISTENCY'],
+    [/^Choose a few movements/i,'CHOOSE SIMPLE MOVEMENTS'],
+    [/^Practice controlled technique/i,'PRACTICE GOOD FORM'],
+    [/^Schedule recovery/i,'PLAN REST AND PROGRESSION'],
+    [/^Check whether the exercises/i,'CHECK YOUR ABILITY AND EQUIPMENT'],
+    [/^Look for a realistic schedule/i,'CHOOSE A REALISTIC SCHEDULE'],
+    [/^Adjust or seek qualified guidance/i,'ADJUST IF SOMETHING HURTS'],
+    [/^Identify which exercises/i,'CHECK WHAT EQUIPMENT YOU NEED'],
+    [/^Compare a low-cost option/i,'COMPARE LOW-COST OPTIONS'],
+    [/^Buy only what supports/i,'BUY WHAT YOU WILL USE'],
+    [/^Choose one specific question/i,'START WITH ONE QUESTION'],
+    [/^Find a trustworthy beginner resource/i,'FIND A TRUSTWORTHY RESOURCE'],
+    [/^Try a small, low-risk action/i,'TRY ONE SMALL ACTION'],
+    [/^Who created the advice/i,'CHECK WHO GAVE THE ADVICE'],
+    [/^Does it apply to your goals/i,'CHECK IF IT FITS YOUR GOALS'],
+    [/^Can you verify it using/i,'VERIFY WITH ANOTHER SOURCE'],
+    [/^Name the specific problem/i,'IDENTIFY THE PROBLEM FIRST'],
+    [/^Compare total cost and free/i,'COMPARE FREE ALTERNATIVES'],
+    [/^Choose the smallest commitment/i,'START WITH A SMALL COMMITMENT'],
+    [/^Mistake 1/i,'AVOID THE FIRST MISTAKE']
+  ];
+  for(const [pattern,label] of rules)if(pattern.test(raw))return label;
+  // For unrecognized content, preserve the point's meaning instead of borrowing a label from another point.
+  const sentence=raw.split(/[.;:]/)[0].replace(/[.!?]+$/,'').trim();
+  const words=sentence.split(/\s+/);
+  return (words.length<=9?sentence:words.slice(0,9).join(' ')).toUpperCase()||'REVIEW THIS STEP';
+}
+function screenTextFor(c){
+  const t=videoTiming(c),title=String(c.title||''),cta=String(c.cta||'');
+  let intro='3 PRACTICAL TIPS';
+  if(/budgeting app/i.test(title))intro='BEFORE YOU PAY FOR A BUDGETING APP';
+  else if(/start a simple budget/i.test(title))intro='BUILD A SIMPLE BUDGET';
+  else if(/money mistakes/i.test(title))intro='AVOID 3 MONEY MISTAKES';
+  else if(/workout mistakes/i.test(title))intro='AVOID 3 WORKOUT MISTAKES';
+  else if(/workout routine/i.test(title))intro='START A BEGINNER WORKOUT';
+  else if(/buying workout equipment/i.test(title))intro='BEFORE BUYING WORKOUT EQUIPMENT';
+  else if(/mistake|avoid|wrong|error/i.test(title))intro='AVOID THESE 3 MISTAKES';
+  else if(/paying|buying|spending/i.test(title))intro='CHECK BEFORE YOU PAY';
+  else if(/budget/i.test(title))intro='YOUR BUDGET STARTS HERE';
+  else if(/\bhow to\b/i.test(title))intro='3 STEPS TO GET STARTED';
+  const closing=/save.*checklist/i.test(cta)?'SAVE THIS CHECKLIST':/save/i.test(cta)?'SAVE THIS GUIDE':/comment|share it below/i.test(cta)?'SHARE YOUR THOUGHTS':'YOUR NEXT STEP';
+  const points=(c.body||[]).slice(0,3).map((p,j)=>['0:'+String(t.bodyStarts[j]).padStart(2,'0'),conciseOverlay(p)]);
+  return [['0:00',intro],...points,['0:'+String(t.ctaStart).padStart(2,'0'),closing]];
+}
+
+function displayCaption(c){
+ const n=(data.niche||'').toLowerCase();
+ if(/fitness|workout|exercise|strength|weight loss/.test(n))return `${c.title}. Start with a manageable routine, learn the basics, and track your progress. Save this beginner guide. #BeginnerFitness #FitnessTips #StartWorkingOut`;
+ return c.caption||`${c.title}. Save this guide for later.`;
+}
+function openScript(){
+ ensureContent();const t=videoTiming(content);
+ $('contentId').textContent=content.id;$('scriptTitle').textContent=content.title;$('purposeP').textContent=content.purpose;
+ $('durationP').textContent='~35 sec (preview)';$('hookTiming').textContent='HOOK · 0:00–0:03';$('bodyTiming').textContent='BODY · 0:03–0:30';$('ctaTiming').textContent='CTA · 0:30–0:35';
+ $('scriptHook').textContent=content.hook;
+ $('bodyTimeline').innerHTML=content.body.map((x,j)=>`<div><b>${String(t.bodyStarts[j]??(3+j*9)).padStart(2,'0')}s</b> · ${escapeHtml(x)}</div>`).join('');
+ $('scriptCta').textContent=content.cta;
+ const buyerGuide=content.purpose==='CONVERT'&&!/sell|lead/i.test(data.goal||'');
+ $('conversionNote').classList.toggle('hidden',!buyerGuide);
+ $('conversionNote').textContent=buyerGuide?'Buyer-decision guide: this helps viewers evaluate a purchase. It is not a sales offer or a verified conversion. To promote your own product, update your creator goal and review the CTA.':'';
+ $('screenText').innerHTML=screenTextFor(content).map(x=>`<div><b>${x[0]}</b> · ${escapeHtml(x[1])}</div>`).join('');
+ $('caption').textContent=displayCaption(content);showScreen('script');
+}
+
+function openCreate(){ensureContent();selectedMethod=content.method||selectedMethod;const opts=[['Record Myself','Best when your personality is the product.'],['AI Avatar','Best when you want a presenter without filming yourself.'],['AI Voice + Visuals','Best for faceless educational content.'],['Images + Text','Fastest option for simple visual posts.']];$('methods').innerHTML=opts.map(([a,b])=>`<div class="method ${selectedMethod===a?'active':''}" onclick="selectMethod('${a.replaceAll("'","\\'")}')"><b>${a}</b><p class="small">${b}</p></div>`).join('');updateGuide();showScreen('create')}
+function selectMethod(m){$('recommendReason').hidden=true;selectedMethod=m;content.method=m;labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));openCreate()}
+function chooseRecommended(){
+ const camera=$('prefCamera').value,budget=$('prefBudget').value,format=$('prefFormat').value;
+ let reason='';
+ if(format==='posts'){selectedMethod='Images + Text';reason='You want visual posts without narration. This method avoids unnecessary video and voice tools.'}
+ else if(format==='presenter' && camera==='yes'){selectedMethod='Record Myself';reason='You are comfortable on camera, so recording yourself gives you a personal presenter without avatar costs.'}
+ else if(format==='presenter' && budget==='paid'){selectedMethod='AI Avatar';reason='You prefer not to film yourself and can use paid tools. An AI presenter matches your goal; review the tool cost before subscribing.'}
+ else if(format==='teaching'){selectedMethod='AI Voice + Visuals';reason='Narration with supporting visuals fits educational content and does not require filming yourself.'}
+ else if(camera==='yes' && budget==='free'){selectedMethod='Record Myself';reason='Recording on your phone is a low-cost option without subscriptions.'}
+ else if(format==='presenter'){selectedMethod='Images + Text';reason='A talking AI presenter may require a paid plan. Start with simple visuals for free, or change your budget to explore AI Avatar.'}
+ else {selectedMethod='Images + Text';reason='This is a simple starting point using free tools and minimal production steps.'}
+ content.method=selectedMethod;labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));openCreate();
+ const r=$('recommendReason');r.hidden=false;r.textContent='NABRYS recommends '+selectedMethod+'. Why: '+reason+' You can select another method at any time.';
+}
+
+function updateGuide(){const m=selectedMethod||'Choose a method above or let NABRYS choose.';let steps={"AI Avatar":["Open your preferred AI avatar tool.","Create a vertical 9:16 avatar video.","Paste the NABRYS script exactly as written.","Choose a natural voice and preview lip sync.","Export the finished video and return here."],"Record Myself":["Set your phone to vertical 9:16.","Use the hook in the first 3 seconds.","Record the three body points in short takes.","Finish with the CTA.","Trim pauses and return here."],"AI Voice + Visuals":["Choose a voiceover tool (check its current free plan and usage rights) and generate narration from your script.","Collect 4–6 visuals that match each line.","Build a vertical 9:16 timeline.","Add on-screen text at the suggested times.","Export and return here."],"Images + Text":["Open a mobile editor such as Canva or CapCut; check the current free features before starting.","Start a vertical 9:16 project and create or choose 4–5 visuals you have rights to use.","Use one visual for each main point in your NABRYS script.","Add the supplied on-screen text and preview it on your phone.","Export a video, review it, and return here to continue to POST."]};$('guide').innerHTML=`<h3>${m}</h3>`+(steps[m]?`<ol>${steps[m].map(x=>`<li>${x}</li>`).join('')}</ol>`:'<p class="muted">NABRYS will turn your choice into simple creation steps.</p>')}
+function markCreated(){if(!selectedMethod){alert('Choose a creation method first.');return}content.status='READY';labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));buildPublishing();showScreen('publish')}
+function buildPublishing(){const ps=content.platforms||[];const platformTips={TikTok:'Keep the opening immediate; avoid a long intro.',Instagram:'Use a strong Reel cover and make the caption save-worthy.',YouTube:'Use a clear searchable title and mark it as a Short when appropriate.',Facebook:'Lead with useful context and invite a natural conversation.'};const checks=['Vertical 9:16 video','Hook visible immediately','Readable on-screen text','Audio checked','AI/synthetic disclosure when the platform requires it',...ps.map(p=>p+': '+(platformTips[p]||'Use the platform-native format.'))];const saved=safeRead('nabrysChecklist_'+content.id,{});$('postChecklist').innerHTML=checks.map((x,i)=>`<label class="check checkInteractive"><input type="checkbox" data-check-index="${i}" ${saved[i]?'checked':''}><span>${escapeHtml(x)}</span></label>`).join('');$('postChecklist').querySelectorAll('input[type=checkbox]').forEach(box=>box.addEventListener('change',()=>{const state={};$('postChecklist').querySelectorAll('input[type=checkbox]').forEach(b=>{if(b.checked)state[b.dataset.checkIndex]=true});labStorage.setItem('nabrysChecklist_'+content.id,JSON.stringify(state))}));$('postTitle').textContent=content.title;$('postCaption').textContent=displayCaption(content);renderPlatformPacks(ps);$('postCta').textContent=content.cta}
+
+function renderPlatformPacks(platforms){
+ const title=content.title||'Your next video';const caption=displayCaption(content);
+ const hints={TikTok:'Lead with the hook immediately. Use concise text and a question to invite a reply.',Instagram:'Use a readable Reel cover and a save-worthy caption.',YouTube:'Use a searchable title and verify Shorts eligibility before publishing.',Facebook:'Give viewers context and invite a relevant conversation.'};
+ const tags={TikTok:'#LearnOnTikTok',Instagram:'#Reels',YouTube:'#Shorts',Facebook:''};
+ const container=$('platformPacks');
+ container.innerHTML='<h3>PLATFORM-SPECIFIC POSTING PACKS</h3><p class="small">Copy and review each version before posting. NABRYS does not publish automatically.</p>';
+ (Array.isArray(platforms)?platforms:[]).forEach(platform=>{
+  const section=document.createElement('section');section.className='platformBlock';
+  const heading=document.createElement('h4');heading.textContent=platform;section.appendChild(heading);
+  const t=document.createElement('p');const tl=document.createElement('b');tl.textContent='Title / opening: ';t.appendChild(tl);t.appendChild(document.createTextNode(platform==='YouTube'?title:(content.hook||title)));section.appendChild(t);
+  const c=document.createElement('p');const cl=document.createElement('b');cl.textContent='Caption: ';c.appendChild(cl);c.appendChild(document.createTextNode(caption+(tags[platform]?' '+tags[platform]:'')));section.appendChild(c);
+  const h=document.createElement('p');h.textContent=hints[platform]||'Check platform-specific requirements before posting.';section.appendChild(h);
+  container.appendChild(section);
+ });
+}
+
+function markPublished(){if(!confirm('Confirm only if you have actually published this content on a platform. Continue?'))return;content.status='PUBLISHED';content.publishedAt=new Date().toISOString();labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));if(!history.some(x=>x.id===content.id)){history.push({...content});labStorage.setItem('nabrysHistory',JSON.stringify(history))}alert('Published status saved. Now add performance results when you have them.');showScreen('tracker');renderLearning()}
+function saveResults(){if(!content){alert('Create content first.');return}if(!['PUBLISHED','ANALYZED'].includes(content.status)){alert('Mark your content as published before recording results.');return}const keys=['views','likes','comments','shares','saves','leads'];for(const key of keys){const raw=$(key).value.trim();if(raw===''||!Number.isSafeInteger(Number(raw))||Number(raw)<0){alert('Enter a valid non-negative whole number for every metric.');$(key).focus();return}}let r=Object.fromEntries(keys.map(key=>[key,Number($(key).value)]));if(r.views<1){alert('Views must be at least 1 to analyze results.');return}if(['likes','comments','shares','saves'].some(k=>r[k]>r.views)){alert('Likes, comments, shares and saves cannot exceed views in this MVP.');return}content.results=r;content.status='ANALYZED';labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));let ix=history.findIndex(x=>x.id===content.id);if(ix>=0)history[ix]={...content};else history.push({...content});labStorage.setItem('nabrysHistory',JSON.stringify(history));renderLearning()}
+function sameNiche(post,niche){const stored=cleanTopic(post.niche||post.creator?.niche||'');if(stored&&stored!=='content creation')return stored.toLowerCase()===niche.toLowerCase();return String(post.title||'').toLowerCase().includes(niche.toLowerCase())}
+function renderLearning(){history=safeRead('nabrysHistory',[]);if(!Array.isArray(history))history=[];const niche=cleanTopic(data.niche);const all=history.filter(x=>x&&x.results&&Number.isFinite(x.results.views)&&x.results.views>0);const measured=all.filter(x=>sameNiche(x,niche));const other=all.length-measured.length;const suffix=other?` ${other} measured post${other===1?' is':'s are'} kept in history but excluded because they belong to another or an unverified niche.`:'';
+ if(measured.length<3){$('learningHeadline').textContent=measured.length===0?'Not enough data for this niche yet.':`${measured.length} measured post${measured.length===1?'':'s'} in this niche — keep collecting evidence.`;$('learningText').textContent=(measured.length===0?`No measured posts are associated with “${niche}” yet. Publish content and enter results to start learning.`:'NABRYS needs more posts in this niche before suggesting a pattern. One result does not guarantee future performance.')+suffix;$('evidenceNote').textContent=`Compared ${measured.length} measured posts for “${niche}”. Evidence threshold: at least 3 posts in the same niche.`;return}
+ let best=[...measured].sort((a,b)=>score(b)-score(a))[0];$('learningHeadline').textContent='Early pattern detected — test it again.';$('learningText').textContent=`Your strongest measured post in “${niche}” so far is “${best.title}”. Try a similar format again before drawing conclusions.`+suffix;$('evidenceNote').textContent=`Compared ${measured.length} measured posts for “${niche}” using normalized engagement signals.`}
+
+function score(x){let r=x.results||{};return ((r.likes||0)+(r.comments||0)*2+(r.shares||0)*3+(r.saves||0)*3+(r.leads||0)*5)/Math.max(r.views||0,1)}
+function copyPack(){navigator.clipboard?.writeText(`${content.title}\n\nHOOK: ${content.hook}\n\n${content.body.join('\n')}\n\nCTA: ${content.cta}\n\nCAPTION:\n${displayCaption(content)}`).then(()=>alert('Creator Pack copied.')).catch(()=>alert('Copy is not available in this browser.'))}
+function copyPublishing(){navigator.clipboard?.writeText(`${content.title}\n\n${displayCaption(content)}\n\nCTA: ${content.cta}`).then(()=>alert('Publishing Pack copied.')).catch(()=>alert('Copy is not available in this browser.'))}
+
+function showWeekly(){
+ const freq=data.frequency||'3× week'; const count=freq==='Daily'?7:(freq.startsWith('5')?5:3); const purposes=/sell/i.test(data.goal)?['EDUCATE','REACH','TRUST','DEMO','CONVERT','TRUST','CONVERT']:/lead/i.test(data.goal)?['EDUCATE','TRUST','REACH','EDUCATE','CONVERT','TRUST','CONVERT']:['REACH','EDUCATE','TRUST','REACH','ENGAGE','EDUCATE','TRUST'];
+ const days=['MON','TUE','WED','THU','FRI','SAT','SUN']; const pillars=strategy();
+ $('weekIntro').textContent=`Based on ${data.goal.toLowerCase()}, ${data.style.toLowerCase()} style and ${freq.toLowerCase()}. NABRYS intentionally leaves recovery/planning days when you are not publishing daily.`;
+ $('weekPlan').innerHTML=days.map((d,j)=>{if(j>=count)return `<div class="day"><b>${d}</b><span class="muted">Plan, batch, reply to comments or rest.</span><span class="pill">NO POST</span></div>`; const p=purposes[j%purposes.length],pillar=pillars[j%pillars.length]; return `<div class="day"><b>${d}</b><span><b>${pillar}</b><br><span class="small">Create one ${p.toLowerCase()}-focused piece for ${Array.isArray(data.platforms)?data.platforms.join(' + '):data.platforms}.</span></span><span class="pill">${p}</span></div>`}).join(''); showScreen('weekly')
+}
+function generateNext(){const intents=['REACH','EDUCATE','BUILD TRUST','CONVERT'];const current=content?.purpose||goalIntent(data.goal);let idx=(intents.indexOf(current)+1)%intents.length;if(/sell/i.test(data.goal))idx=3;if(/lead/i.test(data.goal))idx=2;regenerateFor(intents[idx]);}
+function openCoach(){$('coachQ').value='';$('coachA').textContent='Ask a question and NABRYS will explain the next action in plain language.';showScreen('coach')}
+function coachPreset(x){const q={hook:'What is a hook?',avatar:'What is an AI avatar?',first:'What should I do first?'}[x];$('coachQ').value=q;askCoach()}
+function askCoach(){const q=($('coachQ').value||'').toLowerCase();let a='You do not need to learn everything at once. Tell NABRYS what you are trying to create, then follow one step at a time.';
+ if(q.includes('hook'))a='A hook is the first 1–3 seconds that gives someone a reason to keep watching.\n\nFor your current content, use this:\n“'+(content?.hook||'Start with the viewer’s problem immediately.')+'”\n\nNext action: put that line first — before introductions or explanations.';
+ else if(q.includes('avatar'))a='An AI avatar is a digital presenter that can speak your script without you filming yourself.\n\nUse it when you want a presenter-style video but do not want to be on camera. NABRYS can prepare the script first, then guide you through the avatar tool.';
+ else if(q.includes('9:16')||q.includes('vertical'))a='9:16 is the vertical phone-video shape used by TikTok, Instagram Reels and YouTube Shorts.\n\nNext action: when your video tool asks for format or aspect ratio, choose 9:16 / Vertical.';
+ else if(q.includes('first')||q.includes('start')||q.includes('begin'))a='Start with NABRYS TODAY. Do not choose tools first.\n\n1. Use today’s recommended idea.\n2. Build the script.\n3. Let NABRYS choose a creation method.\n4. Follow the guided steps.\n5. Publish and enter results.\n\nThat is enough for your first cycle.';
+ else if(q.includes('caption'))a='A caption is the text that accompanies your post. It adds context and can tell the viewer what to do next. NABRYS already prepares one inside your Creator Pack.';
+ else if(q.includes('cta'))a='CTA means “call to action” — the simple next action you ask the viewer to take, such as Save this, Comment NEXT, or Learn more. NABRYS changes the CTA according to your goal.';
+ $('coachA').textContent=a}
+
+function resetAll(){if(confirm('Reset this local NABRYS demo?')){labStorage.removeItem('nabrysProfile');labStorage.removeItem('nabrysCurrentContent');labStorage.removeItem('nabrysHistory');location.reload()}}
+if(qs.every(q=>data[q.key] && (!Array.isArray(data[q.key])||data[q.key].length))){ensureContent();buildDashboard();showScreen('dash')}else showScreen('welcome');
+
+function seedLab(){showLabConfirmation('A')}
+function seedLabB(){showLabConfirmation('B')}
+function showLabConfirmation(which){
+ const panel=document.getElementById('labConfirmation');
+ panel.hidden=false;
+ document.getElementById('labConfirmationText').textContent='TEST '+which+' will replace only the fictional sample posts in this separate LAB. Expected winner: '+(which==='A'?'EDUCATE':'REACH')+'. Your main NABRYS app will not change.';
+ document.getElementById('labConfirmAction').textContent='CONFIRM TEST '+which;
+ document.getElementById('labConfirmAction').onclick=()=>{
+   panel.hidden=true;
+   seedScenario(which);
+   const result=document.getElementById('labTestStatus');
+   result.hidden=false;
+   result.textContent='TEST '+which+' loaded: 3 fictional posts. Now tap GENERATE NEW IDEA FROM LEARNING to apply the '+(which==='A'?'EDUCATE':'REACH')+' result to TODAY.';
+   result.scrollIntoView({behavior:'smooth',block:'center'});
+ };
+ panel.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function cancelLabConfirmation(){document.getElementById('labConfirmation').hidden=true;}
+function seedScenario(scenario){
+ // Explicit confirmation is handled by the visible LAB confirmation panel.
+ data={niche:'Personal finance for beginners',audience:'Young adults learning to save money and manage finances',goal:'Grow an audience',platforms:['TikTok','Instagram','YouTube','Facebook'],style:'Educational',frequency:'5× week',ai:"I'm completely new"};
+ const cases=scenario==='A'?[
+  {intent:'REACH',views:1200,likes:75,comments:8,shares:18,saves:40,leads:0},
+  {intent:'EDUCATE',views:3500,likes:210,comments:22,shares:62,saves:145,leads:0},
+  {intent:'CONVERT',views:800,likes:35,comments:4,shares:5,saves:12,leads:0}
+ ]:[
+  {intent:'REACH',views:1200,likes:180,comments:35,shares:90,saves:100,leads:0},
+  {intent:'EDUCATE',views:3500,likes:210,comments:22,shares:62,saves:145,leads:0},
+  {intent:'CONVERT',views:800,likes:35,comments:4,shares:5,saves:12,leads:0}
+ ];
+ history=cases.map((r,j)=>{const g=localGenerate(generationRequest(r.intent));return {...contentFromGeneration(g),id:'LAB-POST-'+(j+1),status:'ANALYZED',niche:cleanTopic(data.niche),results:{views:r.views,likes:r.likes,comments:r.comments,shares:r.shares,saves:r.saves,leads:r.leads},publishedAt:new Date().toISOString()}});
+ content={...history[2]};
+ labStorage.setItem('nabrysProfile',JSON.stringify(data));labStorage.setItem('nabrysHistory',JSON.stringify(history));labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));
+ buildDashboard();showScreen('tracker');
+ // Success is shown in the LAB status panel, not a browser popup.
+}
+function clearLab(){if(!confirm('Clear only LAB data?'))return;for(const k of ['nabrysProfile','nabrysHistory','nabrysCurrentContent','nabrys_provider_endpoint'])labStorage.removeItem(k);location.reload()}
+
+/* v2.0: deterministic, transparent local idea variation, separate LAB storage. */
+const v20OriginalGenerate=localGenerate;
+const v20Ideas={
+ finance:{
+  REACH:[
+   ['3 Small Expenses That Can Drain Your Budget','Where does your money go each week? These three expenses are easy to overlook.',['Review small recurring charges and cancel what you no longer use.','Compare delivery and convenience fees with lower-cost options.','Track impulse purchases for seven days before changing your habits.']],
+   ['3 Money Habits to Try Before Your Next Payday','Want a calmer payday? Try these three simple money habits.',['Write down bills due before the next paycheck.','Choose one spending category to watch this week.','Move a manageable amount to savings after covering essentials.']],
+   ['3 Budget Traps That Are Easy to Miss','Your budget might be missing these three common costs.',['Look for annual subscriptions and divide their cost by twelve.','Plan for occasional transport or maintenance costs.','Leave a small buffer for unexpected everyday expenses.']]
+  ],
+  EDUCATE:[
+   ['How to Build a Weekly Spending Check-In','A ten-minute weekly money check-in can make budgeting clearer.',['Pick the same day each week to review recent transactions.','Group spending into essentials, flexible purchases, and upcoming bills.','Choose one realistic adjustment for the following week.']],
+   ['How to Set Up a Starter Emergency Fund','You can start an emergency fund with a small, repeatable step.',['Choose a starter target that fits your current finances.','Decide how much you can set aside without missing essentials.','Review progress monthly and adjust your contribution as needed.']],
+   ['How to Plan for Bills That Do Not Arrive Monthly','Irregular bills can surprise you. Here is a simple planning method.',['List yearly and occasional bills you already know about.','Estimate each cost and divide it across upcoming paydays.','Set aside the planned amount and review estimates as bills change.']]
+  ]
+ },
+ fitness:{
+  REACH:[['3 Beginner Fitness Habits Worth Keeping','Starting fitness? Focus on these repeatable habits.',['Choose a manageable workout schedule.','Practice movement quality before adding difficulty.','Track consistency and allow time for recovery.']]],
+  EDUCATE:[['How to Plan Your First Week of Workouts','Your first workout week can be simple.',['Choose a few beginner-friendly movements.','Plan recovery between demanding sessions.','Write down what felt manageable and adjust next week.']]]
+ }
+};
+const v20GenerateBase=localGenerate;
+localGenerate=function(req){
+ const result=v20GenerateBase(req), category=nicheCategory(cleanTopic(req.creator.niche));
+ const pool=v20Ideas[category]?.[req.intent];
+ if(!pool?.length)return result;
+ const recent=safeRead('nabrys_v20_idea_titles',[]);
+ const already=new Set([...history.map(x=>x.title),content?.title,...(Array.isArray(recent)?recent:[])].filter(Boolean));
+ const choice=pool.find(v=>!already.has(v[0]))||pool[(Number(labStorage.getItem('nabrys_v20_rotation')||0))%pool.length];
+ const [title,hook,body]=choice;
+ const next={...result,title,hook,body,caption:`${title}. ${body.join(' ')} ${result.cta}`};
+ return next;
+};
+const v20OriginalGenerateFromLearning=generateFromLearning;
+generateFromLearning=function(){
+ if(!data.niche){alert('Load TEST A or TEST B first.');return}
+ const signal=learningSignal();
+ if(!signal){alert('At least 3 measured posts in the same niche are needed.');return}
+ const recent=safeRead('nabrys_v20_idea_titles',[]);
+ const oldTitles=Array.isArray(recent)?recent:[];
+ // Preserve the previous recommendation to avoid unnecessary repetition.
+ if(content?.title&&!oldTitles.includes(content.title))oldTitles.push(content.title);
+ labStorage.setItem('nabrys_v20_idea_titles',JSON.stringify(oldTitles.slice(-12)));
+ labStorage.setItem('nabrys_v20_rotation',String(Number(labStorage.getItem('nabrys_v20_rotation')||0)+1));
+ regenerateFor(signal.intent,true).then(()=>{
+  if(!content)return;
+  const titles=safeRead('nabrys_v20_idea_titles',[]);
+  labStorage.setItem('nabrys_v20_idea_titles',JSON.stringify([...(Array.isArray(titles)?titles:[]),content.title].slice(-12)));
+  if(content.learningEvidence){content.learningEvidence.variantNote='The LAB selected a different prepared topic where available; it did not predict results.';labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));buildDashboard()}
+ });
+};
+const v20SeedScenario=seedScenario;
+seedScenario=function(which){
+ // The scenario itself still requires the user's confirmation in the original function.
+ const prior=JSON.stringify(history);
+ v20SeedScenario(which);
+ if(JSON.stringify(history)!==prior){labStorage.removeItem('nabrys_v20_idea_titles');labStorage.removeItem('nabrys_v20_rotation')}
+};
+const v20ClearLab=clearLab;
+clearLab=function(){
+ if(!confirm('Clear only v2.0 LAB data? The main NABRYS app will not be changed.'))return;
+ for(const k of ['nabrysProfile','nabrysHistory','nabrysCurrentContent','nabrys_provider_endpoint','nabrys_v20_idea_titles','nabrys_v20_rotation'])labStorage.removeItem(k);
+ location.reload();
+};
+
+/* v2.1 editorial polish: short overlays, spoken hooks and genuinely platform-specific captions. */
+const v21HookByTitle={
+ '3 Small Expenses That Can Drain Your Budget':'Three small expenses might be eating into your budget. Let’s find them.',
+ '3 Money Habits to Try Before Your Next Payday':'Payday coming up? Try these three simple habits first.',
+ '3 Budget Traps That Are Easy to Miss':'Think your budget covers everything? Check these three costs.',
+ 'How to Build a Weekly Spending Check-In':'Want a clearer picture of your spending? Try this weekly check-in.',
+ 'How to Set Up a Starter Emergency Fund':'You don’t need a huge amount to start an emergency fund.',
+ 'How to Plan for Bills That Do Not Arrive Monthly':'Some bills don’t come every month. Here’s how to prepare.',
+ '3 Beginner Fitness Habits Worth Keeping':'Starting fitness? These three habits are worth keeping.',
+ 'How to Plan Your First Week of Workouts':'Your first week of workouts doesn’t have to be complicated.'
+};
+function v21SpokenHook(c){
+ const exact=v21HookByTitle[c.title];if(exact)return exact;
+ const raw=String(c.hook||'').replace(/\s+/g,' ').trim();
+ const words=raw.split(/\s+/);
+ return words.length<=19?raw:words.slice(0,18).join(' ').replace(/[,;:–-]+$/,'')+'.';
+}
+const v21Overlays={
+ 'Review small recurring charges':'CHECK RECURRING CHARGES',
+ 'Compare delivery and convenience fees':'COMPARE EXTRA FEES',
+ 'Track impulse purchases':'TRACK IMPULSE BUYS',
+ 'Write down bills due':'LIST UPCOMING BILLS',
+ 'Choose one spending category':'WATCH ONE SPENDING CATEGORY',
+ 'Move a manageable amount':'SAVE WHAT YOU CAN',
+ 'Look for annual subscriptions':'CHECK ANNUAL SUBSCRIPTIONS',
+ 'Plan for occasional transport':'PLAN OCCASIONAL COSTS',
+ 'Leave a small buffer':'LEAVE A SMALL BUFFER',
+ 'Pick the same day':'CHOOSE A CHECK-IN DAY',
+ 'Group spending into':'GROUP YOUR EXPENSES',
+ 'Choose one realistic adjustment':'MAKE ONE SMALL CHANGE',
+ 'Choose a starter target':'SET A STARTER GOAL',
+ 'Decide how much':'CHOOSE A REALISTIC AMOUNT',
+ 'Review progress monthly':'REVIEW YOUR PROGRESS',
+ 'List yearly and occasional bills':'LIST IRREGULAR BILLS',
+ 'Estimate each cost':'DIVIDE COSTS BY PAYDAY',
+ 'Set aside the planned amount':'SET MONEY ASIDE',
+ 'Choose a manageable workout':'START WITH A SIMPLE PLAN',
+ 'Practice movement quality':'FOCUS ON GOOD FORM',
+ 'Track consistency':'TRACK YOUR CONSISTENCY',
+ 'Choose a few beginner-friendly':'CHOOSE BEGINNER MOVEMENTS',
+ 'Plan recovery':'PLAN RECOVERY TIME',
+ 'Write down what felt':'REVIEW YOUR FIRST WEEK'
+};
+function v21ShortOverlay(point){
+ const raw=String(point||'').replace(/^Mistake\s*\d+\s*:\s*/i,'').trim();
+ for(const [start,label] of Object.entries(v21Overlays))if(raw.toLowerCase().startsWith(start.toLowerCase()))return label;
+ const original=conciseOverlay(raw).replace(/[^\p{L}\p{N}\s'-]/gu,' ').trim();
+ const words=original.split(/\s+/).filter(Boolean);
+ return words.slice(0,5).join(' ').toUpperCase()||'TRY THIS STEP';
+}
+const v21OriginalScreenText=screenTextFor;
+screenTextFor=function(c){
+ const rows=v21OriginalScreenText(c);
+ return rows.map((r,i)=>{
+  if(i===0){const title=String(c.title||'');return [r[0],/expense|budget|money|payday|bill/i.test(title)?'MAKE YOUR MONEY COUNT':/fitness|workout/i.test(title)?'START STRONG':r[1].split(/\s+/).slice(0,5).join(' ')];}
+  if(i===rows.length-1)return [r[0],r[1].split(/\s+/).slice(0,5).join(' ')];
+  return [r[0],v21ShortOverlay((c.body||[])[i-1])];
+ });
+};
+const v21BaseGenerate=localGenerate;
+localGenerate=function(req){const out=v21BaseGenerate(req);return {...out,hook:v21SpokenHook(out)};};
+function v21PlatformCaption(platform,c){
+ const title=String(c.title||'').trim();
+ const points=(c.body||[]).slice(0,3).map(x=>String(x).replace(/^Mistake\s*\d+\s*:\s*/i,'').replace(/[.!?]+$/,'').trim());
+ const short=points.map((p,i)=>`${i+1}. ${p}`).join('\n');
+ const cta=String(c.cta||'Save this for later.');
+ const first=points[0]||'Start with one practical step';
+ switch(platform){
+  case 'TikTok':return `${v21SpokenHook(c)}\n${points.map((p,i)=>`${i+1}) ${p}`).join('\n')}\n${cta} #LearnOnTikTok #CreatorTips`;
+  case 'Instagram':return `${title} ✨\n\n${short}\n\nWhich one will you try first? ${cta}\n\n#Reels #PracticalTips`;
+  case 'YouTube':return `${title}\n\nIn this Short, you'll learn:\n${short}\n\n${cta} #Shorts`;
+  case 'Facebook':return `${title}\n\n${first}. Here are two more things to consider:\n${points.slice(1).map(p=>'• '+p).join('\n')}\n\nWhat has worked for you? ${cta}`;
+  default:return displayCaption(c);
+ }
+}
+renderPlatformPacks=function(platforms){
+ const container=$('platformPacks');container.replaceChildren();
+ const heading=document.createElement('h3');heading.textContent='PLATFORM-SPECIFIC POSTING PACKS';container.appendChild(heading);
+ const help=document.createElement('p');help.className='small';help.textContent='Each platform has its own editable draft. Review hashtags, length and platform rules before posting. NABRYS does not publish automatically.';container.appendChild(help);
+ const hints={TikTok:'Lead with the spoken hook. Keep the video moving.',Instagram:'Choose a clear Reel cover and keep line breaks readable.',YouTube:'Use the searchable title; check current Shorts requirements.',Facebook:'Invite discussion without promising results.'};
+ (Array.isArray(platforms)?platforms:[]).forEach(platform=>{
+  const section=document.createElement('section');section.className='platformBlock';
+  const h=document.createElement('h4');h.textContent=platform;section.appendChild(h);
+  const opening=document.createElement('p');const b=document.createElement('b');b.textContent='Opening / title: ';opening.appendChild(b);opening.appendChild(document.createTextNode(platform==='YouTube'?content.title:v21SpokenHook(content)));section.appendChild(opening);
+  const cap=document.createElement('p');cap.style.whiteSpace='pre-line';const cb=document.createElement('b');cb.textContent='Caption:\n';cap.appendChild(cb);cap.appendChild(document.createTextNode(v21PlatformCaption(platform,content)));section.appendChild(cap);
+  const tip=document.createElement('p');tip.className='small';tip.textContent=hints[platform]||'Review platform-specific requirements.';section.appendChild(tip);container.appendChild(section);
+ });
+};
+copyPublishing=function(){
+ const platforms=Array.isArray(content.platforms)?content.platforms:[];
+ const text=[`TITLE: ${content.title}`,`SPOKEN HOOK: ${v21SpokenHook(content)}`,...platforms.map(p=>`\n--- ${p.toUpperCase()} ---\n${v21PlatformCaption(p,content)}`)].join('\n');
+ if(!navigator.clipboard?.writeText){alert('Copy is not available in this browser.');return}
+ navigator.clipboard.writeText(text).then(()=>alert('Platform-specific publishing pack copied.')).catch(()=>alert('Copy is not available in this browser.'));
+};
+
+/* v2.2 timing and caption refinement. Independent lab; no changes to main app storage. */
+const v22Hooks={
+ '3 Small Expenses That Can Drain Your Budget':'Three expenses may be draining your budget.',
+ '3 Money Habits to Try Before Your Next Payday':'Try these three habits before payday.',
+ '3 Budget Traps That Are Easy to Miss':'Are these three costs in your budget?',
+ 'How to Build a Weekly Spending Check-In':'Try this simple weekly spending check-in.',
+ 'How to Set Up a Starter Emergency Fund':'Start your emergency fund with less.',
+ 'How to Plan for Bills That Do Not Arrive Monthly':'Prepare now for those irregular bills.',
+ '3 Beginner Fitness Habits Worth Keeping':'Three fitness habits worth keeping.',
+ 'How to Plan Your First Week of Workouts':'Plan your first workout week simply.'
+};
+function v22Hook(c){
+ const exact=v22Hooks[c.title];if(exact)return exact;
+ const raw=String(c.hook||'').replace(/\s+/g,' ').trim();
+ const first=raw.split(/[.!?]+/)[0].trim();
+ const words=(first||raw).split(/\s+/).filter(Boolean);
+ return words.slice(0,7).join(' ').replace(/[,;:–-]+$/,'')+(words.length?'.':'');
+}
+const v22BaseGenerate=localGenerate;
+localGenerate=function(req){const out=v22BaseGenerate(req);return {...out,hook:v22Hook(out)};};
+const v22Ensure=ensureContent;
+ensureContent=function(){v22Ensure();if(content){const hook=v22Hook(content);if(content.hook!==hook){content.hook=hook;labStorage.setItem('nabrysCurrentContent',JSON.stringify(content));}}};
+const v22OriginalDashboard=buildDashboard;
+buildDashboard=function(){ensureContent();v22OriginalDashboard();};
+const v22OriginalScript=openScript;
+openScript=function(){ensureContent();v22OriginalScript();};
+function v22ShortPoint(p){
+ const clean=String(p||'').replace(/^Mistake\s*\d+\s*:\s*/i,'').replace(/[.!?]+$/,'').trim();
+ const overlay=v21ShortOverlay(clean).toLowerCase();
+ return overlay.charAt(0).toUpperCase()+overlay.slice(1);
+}
+function v22PlatformCaption(platform,c){
+ const items=(c.body||[]).slice(0,3).map(v22ShortPoint);
+ const a=items[0]||'Start with one small step',b=items[1]||'Keep it simple',d=items[2]||'Review your progress';
+ const topic=String(c.title||'').trim();
+ const hook=v22Hook(c);
+ switch(platform){
+  case 'TikTok':return `${hook}\n${a} • ${b} • ${d}\nWhich one catches you most? #MoneyTips #Budgeting`; 
+  case 'Instagram':return `${topic} ✨\n\n✓ ${a}\n✓ ${b}\n✓ ${d}\n\nSave this checklist. Which one will you try? #PersonalFinance #BudgetTips`;
+  case 'YouTube':return `${topic}\n\nThree practical things to check: ${a.toLowerCase()}, ${b.toLowerCase()}, and ${d.toLowerCase()}.\n\nSave this Short to revisit the steps. #Shorts`;
+  case 'Facebook':return `${topic}\n\nSmall costs can be easy to miss. Consider ${a.toLowerCase()}, ${b.toLowerCase()}, and ${d.toLowerCase()}.\n\nWhich one has made the biggest difference for you?`;
+  default:return displayCaption(c);
+ }
+}
+/* Preserve full source sentences in the narration; only publishing captions are shortened. */
+v21PlatformCaption=v22PlatformCaption;
+const v22OriginalPacks=renderPlatformPacks;
+renderPlatformPacks=function(platforms){ensureContent();v22OriginalPacks(platforms);};
+const v22OriginalCopy=copyPublishing;
+copyPublishing=function(){ensureContent();v22OriginalCopy();};
+
+</script></body></html>
